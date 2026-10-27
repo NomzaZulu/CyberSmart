@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f8ff">
+  <title>CyberSmart — Think Before You Click</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <a class="brand" href="#home" aria-label="CyberSmart home">
+        <span class="brand-mark">✳</span>
+        <span>Cyber<span class="brand-accent">Smart</span><small>THINK BEFORE YOU CLICK</small></span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+      <nav class="nav" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#learn">Explore safety</a>
+        <a href="#toolkit">Safety toolkit</a>
+        <a href="#community">Community</a>
+        <button class="button button-small" data-open="detector">Phishing detector <span>↗</span></button>
+      </nav>
+    </header>
+
+    <main id="home">
+      <section class="hero section-wrap">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="live-dot"></span> YOUR DIGITAL WORLD, SAFER</div>
+          <h1>Be smart online.<br><span>Stay safe everywhere.</span></h1>
+          <p class="hero-lede">The internet is full of possibilities. Learn to spot online scams, protect your information, and make smarter choices wherever you go online.</p>
+          <div class="hero-actions">
+            <a class="button" href="#learn">Explore cyber safety <span>→</span></a>
+            <a class="text-link" href="#how-it-works">How it works <span>↗</span></a>
+          </div>
+          <div class="hero-note">
+            <span class="note-icon">✦</span>
+            <span><strong>Learn at your pace.</strong> Make safer choices.</span>
+            <span class="note-divider"></span>
+            <span>✉ <strong>Suspicious message?</strong> Pause and check first.</span>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-label="Illustration of a protected digital world">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="float-card float-card-top">
+            <span class="float-icon purple">✓</span>
+            <span><strong>Think first</strong><small>Pause before you click</small></span>
+          </div>
+          <div class="shield"><div class="shield-inner"><span>✓</span></div></div>
+          <div class="float-card float-card-bottom">
+            <span class="float-icon yellow">✦</span>
+            <span><strong>Stay curious</strong><small>Question the unexpected</small></span>
+          </div>
+          <span class="spark spark-one">✦</span>
+          <span class="spark spark-two">✧</span>
+          <span class="spark spark-three">•</span>
+        </div>
+      </section>
+
+      <section class="trust-strip section-wrap" id="how-it-works">
+        <div><span class="strip-icon">◎</span><span><strong>Learn by doing</strong><small>Short, interactive activities</small></span></div>
+        <div><span class="strip-icon">♡</span><span><strong>Made for students</strong><small>For Classes 1–12</small></span></div>
+        <div><span class="strip-icon">✧</span><span><strong>Build good habits</strong><small>Small steps, safer internet</small></span></div>
+      </section>
+
+      <section class="section-wrap section-block" id="learn">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">YOUR SAFETY PLAYGROUND</div>
+            <h2>Explore. Learn. <span>Stay protected.</span></h2>
+          </div>
+          <p>Choose an activity, test your instincts, and build skills that travel with you online.</p>
+        </div>
+
+        <div class="age-row" aria-label="Choose learning level">
+          <span>Learning level</span>
+          <button class="age-chip active" data-age="all" aria-pressed="true">Everyone</button>
+          <button class="age-chip" data-age="young" aria-pressed="false">Classes 1–5</button>
+          <button class="age-chip" data-age="middle" aria-pressed="false">Classes 6–8</button>
+          <button class="age-chip" data-age="older" aria-pressed="false">Classes 9–12</button>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card card-lilac" data-level="all">
+            <div class="card-top">
+              <span class="feature-icon">⌕</span>
+              <span class="card-label label-coming">COMING SOON</span>
+            </div>
+            <h3>Phishing Detector</h3>
+            <p>Learn how to recognise suspicious messages and links before you interact with them.</p>
+            <button class="card-link card-link-coming" data-open="detector" aria-label="Phishing Detector coming soon; open details">
+              <span class="button-label">Detector coming soon</span><span aria-hidden="true">↗</span>
+            </button>
+            <div class="card-illustration illustration-search">
+              <span class="search-lens">⌕</span>
+              <span class="mini-message">Prize waiting!<br><small>Check the sender first</small></span>
+            </div>
+          </article>
+
+          <article class="feature-card card-peach" data-level="all">
+            <div class="card-top">
+              <span class="feature-icon">◉</span>
+              <span class="card-label">INTERACTIVE</span>
+            </div>
+            <h3>Spot the Scam</h3>
+            <p>Find the warning signs in a suspicious message and practise spotting common tricks.</p>
+            <button class="card-link" data-open="spot">
+              <span class="button-label">Play the activity</span><span aria-hidden="true">→</span>
+            </button>
+            <div class="card-illustration illustration-chat">
+              <span class="chat-bubble">YOU WON A PRIZE! 🎁</span>
+              <span class="chat-bubble chat-bubble-small">Click now!</span>
+            </div>
+          </article>
+
+          <article class="feature-card card-mint" data-level="young">
+            <div class="card-top">
+              <span class="feature-icon">↗</span>
+              <span class="card-label">MAKE A CHOICE</span>
+            </div>
+            <h3>What Would You Do?</h3>
+            <p>Practise real-life school and gaming scenarios and choose the safest next step.</p>
+            <button class="card-link" data-open="scenario">
+              <span class="button-label">Try a scenario</span><span aria-hidden="true">→</span>
+            </button>
+            <div class="card-illustration illustration-choice">
+              <span>?</span><i>✓</i><b>!</b>
+            </div>
+          </article>
+
+          <article class="feature-card card-blue" data-level="all">
+            <div class="card-top">
+              <span class="feature-icon">✧</span>
+              <span class="card-label">QUICK GUIDES</span>
+            </div>
+            <h3>Cyber Safety Toolkit</h3>
+            <p>Get practical tips for passwords, privacy, cyberbullying, and suspicious links.</p>
+            <button class="card-link" data-open="toolkit">
+              <span class="button-label">Explore safety tips</span><span aria-hidden="true">→</span>
+            </button>
+            <div class="card-illustration illustration-toolkit">
+              <span>▣</span><span>♡</span><span>⌑</span><span>✓</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-wrap section-block habits-section">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">A SIMPLE WAY TO REMEMBER</div>
+            <h2>Three habits. <span>Big difference.</span></h2>
+          </div>
+          <p>You don't need to know everything about the internet to make safer choices.</p>
+        </div>
+        <div class="habit-grid">
+          <article class="habit">
+            <div class="habit-number">01</div>
+            <div class="habit-icon habit-purple">Ⅱ</div>
+            <h3>Pause</h3>
+            <p>Unexpected prize, urgent warning, or strange link? Slow down before reacting.</p>
+          </article>
+          <article class="habit">
+            <div class="habit-number">02</div>
+            <div class="habit-icon habit-yellow">⌕</div>
+            <h3>Check</h3>
+            <p>Check who sent it, look closely at the details, and ask a trusted adult if unsure.</p>
+          </article>
+          <article class="habit">
+            <div class="habit-number">03</div>
+            <div class="habit-icon habit-green">✓</div>
+            <h3>Protect</h3>
+            <p>Keep passwords and OTPs private. Block, report, and get help when something feels wrong.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-wrap community-section" id="community">
+        <div class="community-copy">
+          <div class="eyebrow">SAFER INTERNET, STRONGER COMMUNITY</div>
+          <h2>Make your school a <span>safer digital space.</span></h2>
+          <p>Start conversations, share what you learn, and help friends make thoughtful choices online.</p>
+          <a class="button button-light" href="#toolkit">Explore safety guides <span>→</span></a>
+        </div>
+        <div class="community-art">
+          <div class="community-circle circle-a"></div>
+          <div class="community-circle circle-b"></div>
+          <div class="community-note">
+            <span>✦</span><strong>Kindness is online safety, too.</strong><small>Think before you post.</small>
+          </div>
+          <div class="community-star">✳</div>
+        </div>
+      </section>
+
+      <section class="section-wrap section-block toolkit-section" id="toolkit">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">KEEP THESE CLOSE</div>
+            <h2>Your quick <span>safety toolkit.</span></h2>
+          </div>
+          <p>Open a guide for a few clear steps you can use in everyday online life.</p>
+        </div>
+        <div class="toolkit-grid">
+          <button class="toolkit-item" data-guide="passwords">
+            <span class="toolkit-symbol symbol-purple">▣</span>
+            <span><strong>Passwords & accounts</strong><small>Keep your accounts safer</small></span><b>↗</b>
+          </button>
+          <button class="toolkit-item" data-guide="privacy">
+            <span class="toolkit-symbol symbol-blue">◉</span>
+            <span><strong>Privacy & personal info</strong><small>Choose what you share</small></span><b>↗</b>
+          </button>
+          <button class="toolkit-item" data-guide="kindness">
+            <span class="toolkit-symbol symbol-pink">♡</span>
+            <span><strong>Cyberbullying & kindness</strong><small>Get help and support others</small></span><b>↗</b>
+          </button>
+          <button class="toolkit-item" data-guide="links">
+            <span class="toolkit-symbol symbol-green">⌕</span>
+            <span><strong>Clicked a suspicious link?</strong><small>What to do next</small></span><b>↗</b>
+          </button>
+        </div>
+      </section>
+
+      <section class="section-wrap resources">
+        <div>
+          <div class="eyebrow">NEED HELP?</div>
+          <h2>Talk to a trusted adult.<br><span>Use trusted resources.</span></h2>
+        </div>
+        <div class="resource-links">
+          <a href="https://cybercrime.gov.in/" target="_blank" rel="noopener noreferrer">
+            <span>India National Cyber Crime Portal</span><b>↗</b>
+          </a>
+          <a href="https://www.cert-in.org.in/" target="_blank" rel="noopener noreferrer">
+            <span>CERT-In — cyber safety advisories</span><b>↗</b>
+          </a>
+          <p>If you feel unsafe online, save relevant evidence if safe to do so, stop replying, and tell a trusted adult. For emergencies, contact local emergency services.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <a class="brand" href="#home">
+        <span class="brand-mark">✳</span>
+        <span>Cyber<span class="brand-accent">Smart</span><small>THINK BEFORE YOU CLICK</small></span>
+      </a>
+      <p>Learn thoughtfully. Be kind. Stay safer online.</p>
+      <span>© 2026 CyberSmart · Student awareness project</span>
+    </footer>
+  </div>
+
+  <div class="backdrop" id="backdrop"></div>
+  <aside class="activity-panel" id="activityPanel" aria-hidden="true" aria-labelledby="panelTitle">
+    <div class="panel-head">
+      <div><span class="eyebrow">CYBERSMART ACTIVITY</span><h2 id="panelTitle">Let's learn</h2></div>
+      <button class="close-panel" id="closePanel" aria-label="Close activity">×</button>
+    </div>
+    <div class="panel-content" id="panelContent"></div>
+  </aside>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
