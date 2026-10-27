@@ -6,12 +6,12 @@
    ========================================= */
 
 :root {
-  --ink: #17203b;
-  --muted: #68718b;
-  --purple: #6558e8;
-  --purple-dark: #3e32b2;
-  --line: #e8e9f3;
-  --bg: #f8f9ff;
+  --ink: #24334A;
+  --muted: #657080;
+  --purple: #E77961;
+  --purple-dark: #24334A;
+  --line: #E7E0D9;
+  --bg: #FFF9F4;
   --shadow: 0 16px 50px rgba(47, 48, 105, .08);
 }
 
@@ -48,7 +48,7 @@ a {
 
 button:focus-visible,
 a:focus-visible {
-  outline: 3px solid #a8a1ff;
+  outline: 3px solid #E77961;
   outline-offset: 4px;
 }
 
@@ -112,14 +112,14 @@ a:focus-visible {
   font-size: 8px;
   letter-spacing: 1.5px;
   font-weight: 700;
-  color: #8a8fa6;
+  color: #7D8490;
 }
 
 .nav {
   display: flex;
   align-items: center;
   gap: clamp(15px, 2.2vw, 30px);
-  color: #4f5874;
+  color: #4F5B68;
   font-size: 13px;
   font-weight: 700;
 }
@@ -136,7 +136,7 @@ a:focus-visible {
 .menu-toggle {
   display: none;
   border: 0;
-  background: #f0efff;
+  background: #FFF0E8;
   color: var(--purple);
   border-radius: 10px;
   padding: 9px 12px;
@@ -185,15 +185,15 @@ a:focus-visible {
 
 .button-light {
   background: #fff;
-  color: #5144cc;
+  color: #E77961;
   border-color: #fff;
   box-shadow: none;
 }
 
 .button-light:hover {
-  background: #f0eeff;
-  color: #352a9e;
-  border-color: #f0eeff;
+  background: #FFE7DD;
+  color: #9D4435;
+  border-color: #FFE7DD;
 }
 
 /* =========================================
@@ -270,7 +270,7 @@ h2 span {
 }
 
 .text-link {
-  color: #4e5671;
+  color: #4F5B68;
   font-size: 13px;
   font-weight: 700;
 }
@@ -281,12 +281,12 @@ h2 span {
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 30px;
-  color: #727a91;
+  color: #657080;
   font-size: 10px;
 }
 
 .hero-note strong {
-  color: #3b4563;
+  color: #24334A;
 }
 
 .note-icon {
@@ -318,13 +318,13 @@ h2 span {
   width: 360px;
   height: 360px;
   border-radius: 50%;
-  background: linear-gradient(145deg, #eeeaff, #e4eaff);
+  background: #FFF0E8;
 }
 
 .orbit {
   position: absolute;
   z-index: -1;
-  border: 1px dashed #b9b7f2;
+  border: 1px dashed #E7B4A4;
   border-radius: 50%;
   transform: rotate(-23deg);
 }
@@ -338,7 +338,7 @@ h2 span {
   width: 470px;
   height: 290px;
   transform: rotate(32deg);
-  border-color: #d2d2f8;
+  border-color: #E7B4A4;
 }
 
 .shield {
@@ -346,7 +346,7 @@ h2 span {
   place-items: center;
   width: 205px;
   height: 238px;
-  background: linear-gradient(145deg, #8378ff, #5145d4);
+  background: #E77961;
   clip-path: polygon(50% 0, 93% 18%, 88% 67%, 73% 84%, 50% 100%, 27% 84%, 12% 67%, 7% 18%);
   filter: drop-shadow(0 22px 25px rgba(80, 68, 205, .28));
 }
@@ -410,7 +410,7 @@ h2 span {
 }
 
 .purple {
-  background: #eeebff;
+  background: #FBE4DA;
   color: var(--purple);
 }
 
@@ -433,7 +433,7 @@ h2 span {
 .spark-two {
   right: 32px;
   bottom: 76px;
-  color: #8d85ff;
+  color: #E77961;
 }
 
 .spark-three {
@@ -481,7 +481,7 @@ h2 span {
   height: 39px;
   flex-shrink: 0;
   border-radius: 12px;
-  background: #f0efff;
+  background: #FFF0E8;
   color: var(--purple);
   font-size: 22px;
 }
@@ -561,21 +561,21 @@ h2 span {
   border: 1px solid #dfe1ef;
   border-radius: 30px;
   background: #fff;
-  color: #4f5874;
+  color: #4F5B68;
   font-size: 12px;
   font-weight: 700;
   transition: background .2s ease, color .2s ease, border-color .2s ease;
 }
 
 .age-chip:hover:not(.active) {
-  border-color: #8d85ee;
-  background: #f0eeff;
-  color: #5144cc;
+  border-color: #E77961;
+  background: #FFE7DD;
+  color: #E77961;
 }
 
 .age-chip.active {
-  border-color: #5144cc;
-  background: #5144cc;
+  border-color: #E77961;
+  background: #E77961;
   color: #fff;
   box-shadow: 0 4px 12px rgba(81, 68, 204, .18);
 }
@@ -609,24 +609,24 @@ h2 span {
 
 .feature-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(101, 88, 232, .22);
-  box-shadow: 0 16px 35px rgba(47, 48, 105, .10);
+  border-color: rgba(231, 121, 97, .22);
+  box-shadow: 0 16px 35px rgba(36, 51, 74, .10);
 }
 
 .card-lilac {
-  background: linear-gradient(145deg, #f0eeff, #f5f3ff);
+  background: #FFF0E8;
 }
 
 .card-peach {
-  background: linear-gradient(145deg, #fff0e7, #fff5ef);
+  background: #FFF0E8;
 }
 
 .card-mint {
-  background: linear-gradient(145deg, #e8f8f1, #f0fbf7);
+  background: #F3D1BD;
 }
 
 .card-blue {
-  background: linear-gradient(145deg, #eaf3ff, #f1f6ff);
+  background: #EAF0F8;
 }
 
 /*
@@ -703,7 +703,7 @@ h2 span {
   padding: 7px 9px;
   border-radius: 7px;
   background: rgba(255, 255, 255, .9);
-  color: #5144cc;
+  color: #E77961;
   font-size: 9px;
   font-weight: 800;
   line-height: 1.35;
@@ -729,7 +729,7 @@ h2 span {
 .feature-card p {
   flex: 1;
   margin: 0 0 20px;
-  color: #4f5a78;
+  color: #4F5B68;
   font-size: 13px;
   line-height: 1.8;
 }
@@ -748,9 +748,9 @@ h2 span {
   margin: 0 0 24px;
   padding: 13px 15px;
 
-  border: 1px solid #5144cc;
+  border: 1px solid #E77961;
   border-radius: 12px;
-  background: #5144cc;
+  background: #E77961;
   color: #fff;
 
   font-size: 12px;
@@ -779,8 +779,8 @@ h2 span {
 }
 
 .card-link:hover {
-  background: #3e32b2;
-  border-color: #3e32b2;
+  background: #24334A;
+  border-color: #24334A;
   color: #fff;
   transform: translateY(-2px);
   box-shadow: 0 8px 18px rgba(81, 68, 204, .24);
@@ -791,7 +791,7 @@ h2 span {
 }
 
 .card-link:focus-visible {
-  outline: 3px solid #a8a1ff;
+  outline: 3px solid #E77961;
   outline-offset: 3px;
 }
 
@@ -801,14 +801,14 @@ h2 span {
   justify-content: center;
   background: rgba(220, 217, 240, .88);
   border-color: rgba(201, 197, 229, .95);
-  color: #625d85;
+  color: #657080;
   box-shadow: none;
 }
 
 .card-link-coming:hover {
-  background: #dcd9f0;
-  border-color: #c9c5e5;
-  color: #514b7b;
+  background: #F3D1BD;
+  border-color: #E7B4A4;
+  color: #9D4435;
   box-shadow: none;
 }
 
@@ -830,9 +830,9 @@ h2 span {
   place-items: center;
   width: 130px;
   height: 130px;
-  border: 11px solid #8980ef;
+  border: 11px solid #E77961;
   border-radius: 50%;
-  color: #5549d3;
+  color: #9D4435;
   font-size: 70px;
   background: rgba(255,255,255,.35);
   transform: translate(-14px, -4px);
@@ -842,7 +842,7 @@ h2 span {
   padding: 14px 16px;
   border-radius: 12px;
   background: rgba(255,255,255,.6);
-  color: #343d5b;
+  color: #24334A;
   font-size: 11px;
   font-weight: 800;
   transform: rotate(6deg) translateY(26px);
@@ -938,7 +938,7 @@ h2 span {
   height: 62px;
   border-radius: 14px;
   background: rgba(255,255,255,.75);
-  color: #6b5de4;
+  color: #E77961;
   font-size: 28px;
   box-shadow: 0 5px 14px rgba(70,85,160,.05);
   transform: rotate(-6deg);
@@ -998,7 +998,7 @@ h2 span {
 }
 
 .habit-purple {
-  color: #6b5de4;
+  color: #E77961;
   background: #efedff;
 }
 
@@ -1037,7 +1037,7 @@ h2 span {
   overflow: hidden;
   padding: 44px 55px;
   border-radius: 26px;
-  background: #5549d3;
+  background: #9D4435;
   color: #fff;
 }
 
@@ -1172,7 +1172,7 @@ h2 span {
 
 .symbol-purple {
   background: #efedff;
-  color: #6558e8;
+  color: #E77961;
 }
 
 .symbol-blue {
@@ -1351,7 +1351,7 @@ h2 span {
   border: 1px solid #e0dcff;
   border-radius: 14px;
   background: #efedff;
-  color: #5144cc;
+  color: #E77961;
   font-size: 30px;
   line-height: 1;
   transition: background .2s ease, transform .2s ease;
@@ -1367,7 +1367,7 @@ h2 span {
   max-width: 1000px;
   margin: 0 auto;
   padding: 30px 0 50px;
-  color: #4f5874;
+  color: #4F5B68;
   font-size: 15px;
   line-height: 1.85;
 }
@@ -1437,7 +1437,7 @@ h2 span {
 .answer-button:hover:not(:disabled) {
   border-color: var(--purple);
   background: #f3f1ff;
-  color: #352a9e;
+  color: #9D4435;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(47,48,105,.07);
 }
@@ -1451,7 +1451,7 @@ h2 span {
 }
 
 .answer-button:focus-visible {
-  outline: 3px solid #a8a1ff;
+  outline: 3px solid #E77961;
   outline-offset: 3px;
 }
 
