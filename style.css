@@ -2226,3 +2226,51 @@ button:focus-visible, a:focus-visible { outline-color: #D3BFFF; }
 .resource-links, .resource-links a { color: #E2D6F7; }
 .resource-links p { color: #BDB3D2; }
 .how-card, .phishing-card { color: #F3EEFF; }
+
+
+/* HOME PAGE SPACING + DEDICATED HOW-IT-WORKS SECTION */
+.hero {
+  min-height: 0;
+  padding-top: 38px;
+  padding-bottom: 30px;
+  gap: 30px;
+}
+.hero-art { min-height: 390px; }
+.trust-strip { margin-top: 0; }
+.how-it-works-section {
+  padding-top: 64px;
+  padding-bottom: 20px;
+  scroll-margin-top: 90px;
+}
+.how-intro { max-width: 700px; margin-bottom: 24px; }
+.how-intro h2 { margin: 12px 0 10px; font-size: clamp(30px, 3.5vw, 42px); line-height: 1.15; }
+.how-intro h2 span { color: #C3A8FF; }
+.how-intro p { max-width: 620px; margin: 0; color: #C9BEDB; font-size: 15px; line-height: 1.75; }
+.how-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.how-step {
+  position: relative; min-height: 190px; padding: 24px;
+  overflow: hidden; border-radius: 20px;
+  color: #F5F0FF;
+  background: linear-gradient(145deg, rgba(65, 47, 91, .62), rgba(36, 26, 54, .72));
+  border: 1px solid rgba(226, 211, 255, .18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.045);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+}
+.how-step-number { position:absolute; top:20px; right:22px; color:rgba(213,199,238,.42); font-size:24px; font-weight:800; }
+.how-step-icon { display:flex; width:42px; height:42px; align-items:center; justify-content:center; border-radius:13px; margin-bottom:22px; color:#D4BDFF; background:rgba(191,161,255,.13); font-size:24px; }
+.how-step h3 { margin:0 0 8px; color:#F7F2FF; font-size:19px; letter-spacing:-.4px; }
+.how-step p { max-width:290px; margin:0; color:#C9BEDB; font-size:13px; line-height:1.7; }
+@media (max-width: 950px) {
+  .hero { min-height:0; padding-top:32px; padding-bottom:24px; }
+  .hero-art { min-height:330px; }
+  .how-steps { gap:12px; }
+  .how-step { padding:20px; }
+}
+@media (max-width: 700px) {
+  .hero { padding-top:34px; padding-bottom:18px; }
+  .hero-art { min-height:290px; margin-top:0; }
+  .how-it-works-section { padding-top:48px; }
+  .how-steps { grid-template-columns:1fr; }
+  .how-step { min-height:0; padding:20px; }
+  .how-step-icon { margin-bottom:14px; }
+}
