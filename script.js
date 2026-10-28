@@ -696,7 +696,7 @@ document.addEventListener('DOMContentLoaded', () => {
       : 'What Would You Do?: Results';
 
     showPanel(title, `
-      <div style="text-align:center;padding:18px 0;">
+      <div class="activity-results" style="text-align:center;padding:18px 0;">
         <div style="font-size:48px;margin-bottom:8px;">
           ${percentage >= 60 ? '🏆' : '🛡️'}
         </div>
@@ -706,7 +706,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div style="height:100%;width:${percentage}%;background:${percentage >= 60 ? '#42E59B' : '#FF5268'};border-radius:99px;"></div>
         </div>
         <p>${message}</p>
-        <button class="answer-button" data-restart-activity="${type}" style="margin-top:12px;">
+        <button class="answer-button results-retry-button" data-restart-activity="${type}" style="margin-top:12px;">
           Try again
         </button>
       </div>
