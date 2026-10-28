@@ -2674,3 +2674,48 @@ body {
   background: rgba(127, 29, 45, .88);
   box-shadow: 0 0 0 1px rgba(255, 82, 104, .12), 0 10px 28px rgba(127, 29, 45, .2);
 }
+
+/* Results screen: compact, centered retry button and narrower content */
+.panel-content:has(.activity-results) {
+  max-width: 760px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding-top: 24px;
+  padding-bottom: 36px;
+}
+
+.activity-results {
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.panel-content button.results-retry-button {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: auto !important;
+  min-width: 180px;
+  max-width: 240px;
+  margin: 18px auto 0 !important;
+  padding: 15px 34px;
+  text-align: center;
+  border-radius: 16px;
+}
+
+@media (max-width: 600px) {
+  .panel-content:has(.activity-results) {
+    max-width: 100%;
+  }
+
+  .activity-results {
+    max-width: 100%;
+  }
+
+  .panel-content button.results-retry-button {
+    min-width: 160px;
+    padding: 14px 26px;
+  }
+}
