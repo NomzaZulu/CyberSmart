@@ -2719,3 +2719,125 @@ body {
     padding: 14px 26px;
   }
 }
+
+
+/* =========================================
+   POLISHED ACTION ARROWS — CYBERSMART
+   Replaces flat text arrows with dimensional, interactive arrow marks.
+   ========================================= */
+.arrow-mark {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 31px;
+  height: 31px;
+  border-radius: 11px;
+  color: #FFFFFF;
+  font-family: "DM Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  background: linear-gradient(145deg, #C9ACFF 0%, #9569E8 100%);
+  border: 1px solid rgba(255, 255, 255, .34);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .35),
+    0 4px 12px rgba(111, 70, 190, .30);
+  text-shadow: 0 1px 2px rgba(35, 17, 61, .25);
+  transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
+}
+
+.arrow-mark::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, .09);
+  pointer-events: none;
+}
+
+.arrow-right {
+  padding-bottom: 2px;
+}
+
+.arrow-up-right {
+  font-size: 18px;
+  padding-bottom: 2px;
+}
+
+/* Lift and brighten the arrow when its parent action is hovered. */
+a:hover .arrow-mark,
+button:hover .arrow-mark,
+.card-link:hover .arrow-mark {
+  transform: translate(2px, -1px) rotate(-3deg) scale(1.06);
+  filter: brightness(1.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .42),
+    0 7px 17px rgba(132, 91, 220, .38);
+}
+
+.button .arrow-mark {
+  width: 32px;
+  height: 32px;
+  margin: -5px -7px -5px 3px;
+  color: #2B1B46;
+  background: linear-gradient(145deg, #F5EDFF, #D8C3FF);
+  border-color: rgba(255, 255, 255, .48);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 3px 9px rgba(49, 28, 82, .15);
+  text-shadow: none;
+}
+
+.card-link .arrow-mark {
+  width: 34px;
+  height: 34px;
+  margin-left: 10px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #E3D3FF, #B89AF6);
+  color: #302044;
+}
+
+.card-link:hover .arrow-mark {
+  background: linear-gradient(145deg, #F8F2FF, #D7C2FF);
+  color: #302044;
+}
+
+.card-link-coming .arrow-mark {
+  background: linear-gradient(145deg, #F2E8FF, #C9B0FF);
+}
+
+.resource-links a .arrow-mark,
+.toolkit-item > .arrow-mark {
+  width: 29px;
+  height: 29px;
+  border-radius: 10px;
+  color: #EDE2FF;
+  background: linear-gradient(145deg, rgba(191, 161, 255, .34), rgba(132, 93, 205, .42));
+  border-color: rgba(222, 203, 255, .24);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 4px 10px rgba(10, 5, 25, .14);
+}
+
+/* Resource and toolkit arrow elements were bold tags in the original markup. */
+.resource-links a b.arrow-mark,
+.toolkit-item b.arrow-mark {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Dynamic next-question button uses the same arrow treatment. */
+#activityControls .arrow-mark {
+  width: 31px;
+  height: 31px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow-mark,
+  a:hover .arrow-mark,
+  button:hover .arrow-mark,
+  .card-link:hover .arrow-mark {
+    transition: none;
+    transform: none;
+  }
+}
