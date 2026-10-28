@@ -959,3 +959,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log('CyberSmart loaded successfully. No account or sign-in required.');
 });
+
