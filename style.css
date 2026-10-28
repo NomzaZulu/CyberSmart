@@ -2650,3 +2650,27 @@ body {
   .panel-content .message-example,
   .panel-content .scenario-intro { padding: 17px 16px 18px 19px; margin-bottom: 20px; }
 }
+
+
+/* High-contrast answer feedback for the dark glass theme */
+.answer-button:disabled {
+  opacity: 1;
+  cursor: default;
+}
+.answer-button:disabled:not([style*="background-color"]) {
+  color: #F4EEFF;
+  border-color: rgba(226, 211, 255, .22);
+  background: rgba(255, 255, 255, .055);
+}
+.feedback.correct {
+  color: #E9FFF4;
+  border: 1px solid #42E59B;
+  background: rgba(20, 92, 67, .88);
+  box-shadow: 0 0 0 1px rgba(66, 229, 155, .12), 0 10px 28px rgba(12, 116, 74, .18);
+}
+.feedback.wrong {
+  color: #FFF1F3;
+  border: 1px solid #FF5268;
+  background: rgba(127, 29, 45, .88);
+  box-shadow: 0 0 0 1px rgba(255, 82, 104, .12), 0 10px 28px rgba(127, 29, 45, .2);
+}
