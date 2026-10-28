@@ -638,13 +638,15 @@ document.addEventListener('DOMContentLoaded', () => {
           <div style="height:100%;width:${(progress / questions.length) * 100}%;background:#635bdb;border-radius:99px;"></div>
         </div>
       </div>
-      ${isSpot
-        ? `<div class="message-example"><strong>Example message</strong>${escapeHTML(question.message || '')}</div>`
-        : `<div class="scenario-intro">${escapeHTML(question.intro || '')}</div>`}
       <section class="question-block" aria-labelledby="activityQuestionTitle">
-        <div class="question-kicker">YOUR CHOICE</div>
-        <h3 id="activityQuestionTitle">${escapeHTML(question.question)}</h3>
-        <p class="question-instruction">Choose the safest response below.</p>
+        ${isSpot
+          ? `<div class="message-example"><strong>Example message</strong><span>${escapeHTML(question.message || '')}</span></div>`
+          : `<div class="scenario-intro"><strong>Scenario</strong><span>${escapeHTML(question.intro || '')}</span></div>`}
+        <div class="question-prompt">
+          <div class="question-kicker">YOUR CHOICE</div>
+          <h3 id="activityQuestionTitle">${escapeHTML(question.question)}</h3>
+          <p class="question-instruction">Choose the safest response below.</p>
+        </div>
         <div class="answer-list">${options}</div>
       </section>
       <div id="activityFeedback" aria-live="polite"></div>
