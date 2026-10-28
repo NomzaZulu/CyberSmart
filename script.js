@@ -703,7 +703,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <h3 style="margin:0 0 8px;">You scored ${score} out of ${total}</h3>
         <p style="margin:0 0 18px;">${percentage}% correct</p>
         <div style="height:10px;background:#e8eaf2;border-radius:99px;overflow:hidden;max-width:360px;margin:0 auto 18px;">
-          <div style="height:100%;width:${percentage}%;background:${percentage >= 60 ? '#27a56b' : '#dc3545'};border-radius:99px;"></div>
+          <div style="height:100%;width:${percentage}%;background:${percentage >= 60 ? '#42E59B' : '#FF5268'};border-radius:99px;"></div>
         </div>
         <p>${message}</p>
         <button class="answer-button" data-restart-activity="${type}" style="margin-top:12px;">
@@ -823,41 +823,41 @@ document.addEventListener('DOMContentLoaded', () => {
             // The student's incorrect selection is red.
             button.style.setProperty(
               'background-color',
-              '#fff0f0',
+              'rgba(127, 29, 45, 0.88)',
               'important'
             );
             button.style.setProperty(
               'border-color',
-              '#dc3545',
+              '#FF5268',
               'important'
             );
-            button.style.setProperty('color', '#b4232c', 'important');
+            button.style.setProperty('color', '#FFF1F3', 'important');
           } else if (isCorrectAnswer) {
             // Show the correct answer in green.
             button.style.setProperty(
               'background-color',
-              '#e8f8ef',
+              'rgba(20, 92, 67, 0.88)',
               'important'
             );
             button.style.setProperty(
               'border-color',
-              '#27a56b',
+              '#42E59B',
               'important'
             );
-            button.style.setProperty('color', '#236e51', 'important');
+            button.style.setProperty('color', '#E9FFF4', 'important');
           } else {
             // Other unselected, incorrect options remain neutral.
             button.style.setProperty(
               'background-color',
-              '#ffffff',
+              'rgba(255, 255, 255, 0.07)',
               'important'
             );
             button.style.setProperty(
               'border-color',
-              '#d8dbea',
+              'rgba(226, 211, 255, 0.24)',
               'important'
             );
-            button.style.setProperty('color', '#344054', 'important');
+            button.style.setProperty('color', '#F4EEFF', 'important');
           }
         });
       }
@@ -870,17 +870,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         feedback.style.setProperty(
           'background-color',
-          correct ? '#e8f8ef' : '#fff0f0',
+          correct ? 'rgba(20, 92, 67, 0.88)' : 'rgba(127, 29, 45, 0.88)',
           'important'
         );
         feedback.style.setProperty(
           'border-color',
-          correct ? '#27a56b' : '#dc3545',
+          correct ? '#42E59B' : '#FF5268',
           'important'
         );
         feedback.style.setProperty(
           'color',
-          correct ? '#236e51' : '#b4232c',
+          correct ? '#E9FFF4' : '#FFF1F3',
           'important'
         );
         feedback.style.padding = '16px';
