@@ -1952,3 +1952,277 @@ h2 span {
     transform: none;
   }
 }
+
+/* =========================================
+   CYBERSMART — MIDNIGHT PLUM GLASS THEME
+   Visual-only overrides; quiz logic remains unchanged.
+   ========================================= */
+:root {
+  color-scheme: dark;
+  --ink: #F3EEFF;
+  --muted: #B8AECF;
+  --purple: #B79AFF;
+  --purple-dark: #8B68D9;
+  --line: rgba(226, 211, 255, .18);
+  --bg: #171124;
+  --shadow: 0 20px 60px rgba(4, 2, 15, .28);
+}
+
+html { background: #171124; }
+body {
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at 12% 8%, rgba(112, 58, 174, .28), transparent 38%),
+    radial-gradient(ellipse at 88% 32%, rgba(72, 48, 145, .22), transparent 34%),
+    radial-gradient(ellipse at 52% 92%, rgba(107, 43, 130, .18), transparent 38%),
+    #171124;
+}
+::selection { background: rgba(183, 154, 255, .35); color: #fff; }
+button:focus-visible, a:focus-visible { outline-color: #D3BFFF; }
+
+.header {
+  background: rgba(25, 17, 42, .70);
+  border-bottom-color: rgba(226, 211, 255, .13);
+  box-shadow: 0 8px 32px rgba(6, 3, 18, .12);
+  backdrop-filter: blur(24px) saturate(145%);
+  -webkit-backdrop-filter: blur(24px) saturate(145%);
+}
+.brand, .brand small, .nav a { color: #F4EEFF; }
+.brand-accent { color: #C6AEFF; }
+.brand-mark {
+  color: #241638;
+  background: linear-gradient(145deg, #D9C8FF, #A98AF0);
+  box-shadow: 0 5px 18px rgba(153, 112, 236, .25);
+}
+.nav a:hover, .nav a.active { color: #D7C5FF; }
+.menu-toggle, .nav .button-small {
+  color: #F5F0FF;
+  border-color: rgba(224, 207, 255, .22);
+  background: rgba(255, 255, 255, .075);
+}
+
+.hero h1, h1, h2, h3, h4 { color: #F5F0FF; }
+.hero h1 span, .section-heading h2 span, .community-copy h2 span { color: #C3A8FF; }
+.hero-lede, .hero-note, .section-heading p, .community-copy p,
+.feature-card p, .toolkit-item small, .footer p, .footer > span { color: #BDB3D2; }
+.eyebrow { color: #D0B9FF; }
+.live-dot { background: #C5A7FF; box-shadow: 0 0 0 5px rgba(197, 167, 255, .12); }
+.button {
+  color: #26183B;
+  border: 1px solid rgba(231, 217, 255, .38);
+  background: linear-gradient(135deg, #D7C6FF, #B39AF3);
+  box-shadow: 0 8px 24px rgba(137, 94, 210, .22);
+}
+.button:hover { background: linear-gradient(135deg, #E4D9FF, #C5AEFF); }
+.text-link { color: #D8C8FF; }
+.hero-note .note-icon, .strip-icon { color: #D2B9FF; }
+.hero-art::before { background: radial-gradient(circle, rgba(135, 82, 206, .28), transparent 68%); }
+.orbit { border-color: rgba(202, 173, 255, .22); }
+.shield { filter: drop-shadow(0 12px 32px rgba(148, 99, 223, .24)); }
+.float-card {
+  color: #F5F0FF;
+  border: 1px solid rgba(235, 222, 255, .22);
+  background: rgba(48, 34, 70, .58);
+  box-shadow: 0 12px 35px rgba(5, 3, 16, .20);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+.float-card small { color: #C3B8D8; }
+.trust-strip, .feature-card, .toolkit-item, .community-note, .community-section,
+.phishing-card, .how-card {
+  border-color: rgba(224, 207, 255, .17);
+  background: rgba(255, 255, 255, .055);
+  box-shadow: 0 12px 35px rgba(5, 3, 16, .13);
+  backdrop-filter: blur(18px) saturate(125%);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+}
+.trust-strip { color: #F2ECFF; }
+.trust-strip strong, .feature-card h3, .toolkit-item strong { color: #F5F0FF; }
+.trust-strip small { color: #BEB2D4; }
+.section-block { color: #F3EEFF; }
+.section-heading .eyebrow { color: #D1B9FF; }
+.feature-card { border-radius: 22px; }
+.feature-card:hover, .toolkit-item:hover {
+  border-color: rgba(204, 177, 255, .42);
+  background: rgba(177, 143, 238, .10);
+  box-shadow: 0 18px 44px rgba(5, 3, 16, .20);
+}
+.feature-icon, .toolkit-symbol { background: rgba(193, 164, 255, .13); color: #D4C1FF; }
+.card-link { color: #D4C1FF; }
+.community-section { background: rgba(97, 63, 133, .14); }
+.community-circle { background: rgba(183, 154, 255, .12); border-color: rgba(211, 190, 255, .20); }
+.community-note { color: #F3EEFF; }
+.footer { border-top-color: rgba(226, 211, 255, .15); color: #BDB3D2; }
+.footer .brand { color: #F4EEFF; }
+
+/* Full-screen activities: clear, high-contrast frosted glass */
+.backdrop, .backdrop.show { background: rgba(8, 5, 18, .74); backdrop-filter: blur(12px); }
+.activity-panel {
+  color: #F3EEFF;
+  background:
+    radial-gradient(ellipse at 8% 0%, rgba(111, 66, 169, .24), transparent 38%),
+    radial-gradient(ellipse at 96% 70%, rgba(76, 53, 143, .20), transparent 34%),
+    rgba(24, 17, 39, .97);
+}
+.panel-head { border-bottom-color: rgba(226, 211, 255, .18); }
+.panel-head h2 { color: #F7F2FF; }
+.close-panel {
+  border-color: rgba(220, 200, 255, .24);
+  background: rgba(190, 160, 255, .12);
+  color: #E2D1FF;
+  backdrop-filter: blur(14px);
+}
+.close-panel:hover { background: rgba(190, 160, 255, .22); }
+.panel-content { color: #D0C7E0; }
+.panel-content h3 { color: #F7F2FF; }
+.question-block {
+  border: 1px solid rgba(222, 202, 255, .23);
+  border-top: 3px solid #C5A6FF;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(255,255,255,.105), rgba(255,255,255,.045));
+  box-shadow: 0 18px 48px rgba(5, 2, 16, .22), inset 0 1px 0 rgba(255,255,255,.08);
+  backdrop-filter: blur(24px) saturate(135%);
+  -webkit-backdrop-filter: blur(24px) saturate(135%);
+}
+.question-kicker {
+  color: #E3D4FF;
+  background: rgba(180, 143, 255, .17);
+  border: 1px solid rgba(214, 190, 255, .17);
+}
+.panel-content .question-block h3 { color: #FBF8FF; }
+.question-instruction { color: #C0B5D4; }
+.scenario-intro {
+  color: #F1D8FF;
+  border-left-color: #C5A6FF;
+  background: rgba(155, 103, 199, .13);
+  border-top: 1px solid rgba(220, 191, 255, .12);
+  border-right: 1px solid rgba(220, 191, 255, .12);
+  border-bottom: 1px solid rgba(220, 191, 255, .12);
+}
+.message-example {
+  color: #FFE9D5;
+  border: 1px solid rgba(255, 185, 126, .36);
+  border-left: 5px solid #FFB56F;
+  border-radius: 16px;
+  background: linear-gradient(120deg, rgba(167, 94, 52, .24), rgba(255, 183, 113, .09));
+  box-shadow: 0 12px 30px rgba(5, 2, 16, .13), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.message-example strong {
+  color: #2A1930;
+  background: #FFC18A;
+}
+.answer-list { border-top-color: rgba(226, 211, 255, .16); }
+.answer-button {
+  color: #F4EEFF;
+  border-color: rgba(226, 211, 255, .20);
+  background: rgba(255, 255, 255, .055);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.answer-button:hover:not(:disabled) {
+  color: #FFFFFF;
+  border-color: rgba(202, 174, 255, .58);
+  background: rgba(174, 138, 242, .14);
+  box-shadow: 0 8px 24px rgba(5, 2, 16, .16);
+}
+.answer-button:focus-visible { outline-color: #D4C0FF; }
+.feedback {
+  color: #C8F5DD;
+  border-color: rgba(102, 218, 159, .38);
+  background: rgba(37, 137, 91, .17);
+}
+.feedback.warn {
+  color: #FFE5B7;
+  border-color: rgba(255, 197, 98, .36);
+  background: rgba(171, 112, 30, .17);
+}
+.toast {
+  color: #F8F3FF;
+  border: 1px solid rgba(226, 211, 255, .20);
+  background: rgba(43, 30, 64, .94);
+  backdrop-filter: blur(18px);
+}
+
+@media (max-width: 760px) {
+  .header { background: rgba(25, 17, 42, .88); }
+  .nav { background: rgba(34, 24, 52, .97); border-color: rgba(226, 211, 255, .18); }
+  .hero-art { opacity: .94; }
+  .question-block { padding: 22px 18px; }
+  .message-example { padding: 20px 18px 20px 22px; }
+  .answer-list { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+/* =========================================
+   MIDNIGHT PLUM THEME — CONSISTENCY FIXES
+   Fix legacy light surfaces and low-contrast card content.
+   ========================================= */
+.habits-section .habit {
+  color: #F5F0FF;
+  background: linear-gradient(145deg, rgba(66, 48, 91, .70), rgba(37, 27, 54, .78));
+  border-color: rgba(226, 211, 255, .20);
+  box-shadow: 0 12px 32px rgba(4, 2, 15, .18), inset 0 1px 0 rgba(255, 255, 255, .045);
+  backdrop-filter: blur(18px) saturate(125%);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+}
+.habits-section .habit:hover {
+  background: linear-gradient(145deg, rgba(78, 57, 108, .78), rgba(43, 31, 64, .86));
+  border-color: rgba(204, 177, 255, .38);
+  box-shadow: 0 18px 40px rgba(4, 2, 15, .24);
+}
+.habits-section .habit h3 { color: #F7F2FF; }
+.habits-section .habit p { color: #D0C6E2; font-size: 13px; }
+.habit-number { color: #B7ACD0; }
+.habit-purple { color: #FFD2C8; background: rgba(183, 154, 255, .16); }
+.habit-yellow { color: #FFE0A0; background: rgba(255, 199, 92, .14); }
+.habit-green { color: #A6F0D1; background: rgba(91, 211, 164, .14); }
+
+.footer {
+  color: #D0C6E2;
+  background: rgba(22, 15, 36, .82);
+  border-top-color: rgba(226, 211, 255, .17);
+  backdrop-filter: blur(22px) saturate(130%);
+  -webkit-backdrop-filter: blur(22px) saturate(130%);
+}
+.footer .brand, .footer .brand small { color: #F4EEFF; }
+.footer p, .footer > span { color: #BDB3D2; }
+.footer .brand-mark { color: #241638; }
+
+/* Feature-card artwork should decorate the card, never compete with text. */
+.feature-card { background: linear-gradient(145deg, rgba(55, 39, 78, .78), rgba(34, 25, 51, .88)); }
+.card-lilac, .card-peach, .card-mint, .card-blue { background: linear-gradient(145deg, rgba(59, 42, 83, .78), rgba(34, 25, 51, .88)); }
+.card-illustration { opacity: .055; }
+.feature-card:hover .card-illustration { opacity: .085; }
+.feature-card h3 { color: #F7F2FF; }
+.feature-card p { color: #D0C6E2; }
+.card-label {
+  color: #E7DBFF;
+  background: rgba(190, 161, 255, .12);
+  border: 1px solid rgba(220, 200, 255, .22);
+}
+.label-coming {
+  color: #FFE1A1;
+  background: rgba(255, 195, 79, .13);
+  border-color: rgba(255, 207, 113, .30);
+}
+.card-link {
+  color: #F8F3FF;
+  background: linear-gradient(135deg, #9D7BE3, #8060C9);
+  border: 1px solid rgba(235, 222, 255, .25);
+  box-shadow: 0 8px 24px rgba(8, 4, 20, .22);
+}
+.card-link:hover { background: linear-gradient(135deg, #B49AEE, #9273D9); }
+.card-link.disabled, .card-link[aria-disabled="true"] {
+  color: #E3D6FF;
+  background: rgba(190, 161, 255, .14);
+  border-color: rgba(220, 200, 255, .18);
+  box-shadow: none;
+}
+
+/* Keep every remaining legacy white surface consistent with the dark glass theme. */
+.resource-links, .resource-links a { color: #E2D6F7; }
+.resource-links p { color: #BDB3D2; }
+.how-card, .phishing-card { color: #F3EEFF; }
