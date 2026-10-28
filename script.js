@@ -697,13 +697,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     showPanel(title, `
       <div class="activity-results" style="text-align:center;padding:18px 0;">
-        <div style="font-size:48px;margin-bottom:8px;">
+        <div class="result-trophy" style="font-size:36px;margin-bottom:14px;">
           ${percentage >= 60 ? '🏆' : '🛡️'}
         </div>
-        <h3 style="margin:0 0 8px;">You scored ${score} out of ${total}</h3>
+        <div class="result-score-number" data-final-score="${score}">0</div>
+        <div class="result-score-label" style="margin:4px 0 10px;">out of ${total} correct</div>
         <p style="margin:0 0 18px;">${percentage}% correct</p>
-        <div style="height:10px;background:#e8eaf2;border-radius:99px;overflow:hidden;max-width:360px;margin:0 auto 18px;">
-          <div style="height:100%;width:${percentage}%;background:${percentage >= 60 ? '#42E59B' : '#FF5268'};border-radius:99px;"></div>
+        <div style="height:10px;background:rgba(255,255,255,.10);border-radius:99px;overflow:hidden;max-width:360px;margin:0 auto 18px;">
+          <div class="result-meter" style="height:100%;width:${percentage}%;background:${percentage >= 60 ? 'linear-gradient(90deg,#23C987,#69F0B2)' : 'linear-gradient(90deg,#F04462,#FF8293)'};border-radius:99px;"></div>
         </div>
         <p>${message}</p>
         <button class="answer-button results-retry-button" data-restart-activity="${type}" style="margin-top:12px;">
@@ -711,6 +712,25 @@ document.addEventListener('DOMContentLoaded', () => {
         </button>
       </div>
     `);
+
+    const scoreNumber = document.querySelector('[data-final-score]');
+    if (scoreNumber) {
+      const targetScore = Number(scoreNumber.dataset.finalScore || 0);
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reducedMotion) {
+        scoreNumber.textContent = String(targetScore);
+      } else {
+        const duration = 850;
+        const start = performance.now();
+        const tick = (now) => {
+          const progress = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          scoreNumber.textContent = String(Math.round(targetScore * eased));
+          if (progress < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }
+    }
   }
 
   function showToolkit() {
@@ -899,6 +919,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (scoreDisplay) {
         scoreDisplay.textContent = String(activityState.score);
+        scoreDisplay.classList.remove('score-pop');
+        void scoreDisplay.offsetWidth;
+        scoreDisplay.classList.add('score-pop');
       }
 
       if (controls) {
