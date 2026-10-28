@@ -3150,3 +3150,92 @@ button:hover .arrow-mark,
   .help-resource-card:hover,
   .help-resource-card:hover .arrow-mark { transform: none; }
 }
+
+
+/* CYBERSMART POLISH PASS: activity cards, quiz flow, toolkit, typography */
+:root { --cs-lavender: #CBB4FF; --cs-glass-line: rgba(224,207,255,.20); }
+body { letter-spacing: .005em; }
+.section-heading { gap: clamp(22px, 4vw, 54px); margin-bottom: clamp(24px, 3vw, 38px); }
+.section-heading h2 { line-height: 1.12; letter-spacing: -1.15px; text-wrap: balance; }
+.section-heading p, .feature-card p, .toolkit-item small { line-height: 1.75; }
+.feature-grid { gap: 20px; }
+.feature-card {
+  position: relative; overflow: hidden; isolation: isolate;
+  transition: transform .28s cubic-bezier(.2,.8,.2,1), border-color .28s ease, background .28s ease, box-shadow .28s ease;
+}
+.feature-card::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  opacity: 0; background: radial-gradient(circle at 85% 12%, rgba(199,169,255,.16), transparent 42%);
+  transition: opacity .28s ease;
+}
+.feature-card:hover, .feature-card:focus-within {
+  transform: translateY(-6px); border-color: rgba(204,177,255,.52);
+  background: linear-gradient(145deg, rgba(174,137,237,.13), rgba(255,255,255,.045));
+  box-shadow: 0 22px 48px rgba(5,3,16,.25), inset 0 1px 0 rgba(255,255,255,.10);
+}
+.feature-card:hover::after, .feature-card:focus-within::after { opacity: 1; }
+.feature-icon { transition: transform .28s ease, box-shadow .28s ease; }
+.feature-card:hover .feature-icon { transform: translateY(-2px) rotate(-4deg); box-shadow: 0 7px 20px rgba(155,116,229,.16); }
+.card-link { transition: color .2s ease, gap .2s ease; }
+.card-link:hover { color: #F0E7FF; }
+.card-link .arrow-mark { transition: transform .22s ease, box-shadow .22s ease; }
+.card-link:hover .arrow-mark { transform: translateX(4px); }
+.toolkit-grid { gap: 15px; }
+.toolkit-item {
+  min-height: 98px; padding: 19px; border-radius: 19px;
+  transition: transform .24s ease, border-color .24s ease, background .24s ease, box-shadow .24s ease;
+}
+.toolkit-item:hover, .toolkit-item:focus-visible {
+  transform: translateY(-4px); border-color: rgba(204,177,255,.48);
+  box-shadow: 0 16px 34px rgba(5,3,16,.22), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.toolkit-symbol { transition: transform .25s ease; }
+.toolkit-item:hover .toolkit-symbol { transform: scale(1.06) rotate(-3deg); }
+.toolkit-item strong { display: block; line-height: 1.4; }
+.toolkit-item small { display: block; margin-top: 4px; }
+/* Quiz progress and score feedback */
+.activity-progress { padding: 15px 16px 16px; border: 1px solid rgba(224,207,255,.14); border-radius: 17px; background: rgba(255,255,255,.045); }
+.activity-progress > div:first-child { color: #DCD0F0; font-size: 13px; }
+.activity-progress > div:first-child > span { color: #D4C1FF; }
+.activity-progress > div:last-child { background: rgba(255,255,255,.10) !important; height: 9px !important; }
+.activity-progress > div:last-child > div { background: linear-gradient(90deg,#9D7AE8,#D2B8FF) !important; transition: width .55s cubic-bezier(.2,.8,.2,1); box-shadow: 0 0 14px rgba(184,145,255,.3); }
+.question-block { padding: clamp(16px, 2.5vw, 24px); border: 1px solid rgba(224,207,255,.17); border-radius: 23px; background: linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.025)); box-shadow: inset 0 1px 0 rgba(255,255,255,.04); }
+.question-prompt h3 { font-size: clamp(21px, 2.4vw, 28px); line-height: 1.28; letter-spacing: -.55px; text-wrap: balance; }
+.question-instruction { color: #C7BADB !important; line-height: 1.7; }
+.answer-list { gap: 11px !important; }
+.answer-button { transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease; }
+.answer-button:not(:disabled):hover { transform: translateY(-2px); border-color: rgba(204,177,255,.55); box-shadow: 0 8px 20px rgba(5,3,16,.15); }
+.answer-button:disabled { animation: answerSettle .22s ease both; }
+#activityScore.score-pop { display: inline-block; animation: scorePop .42s cubic-bezier(.2,.8,.2,1); color: #E2D1FF; }
+.activity-results { animation: resultReveal .55s cubic-bezier(.2,.8,.2,1) both; }
+.activity-results .result-score-number { display: inline-block; font-size: clamp(54px, 8vw, 78px); font-weight: 800; line-height: 1.1; letter-spacing: -2px; color: #D8C5FF; text-shadow: 0 0 28px rgba(186,147,255,.18); }
+.activity-results .result-score-label { color: #C9BEDB; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+.activity-results .result-meter { transform-origin: left center; animation: meterGrow .9s .15s cubic-bezier(.2,.8,.2,1) both; }
+.activity-results .result-trophy { display: inline-grid; place-items: center; width: 74px; height: 74px; border: 1px solid rgba(213,190,255,.25); border-radius: 24px; background: linear-gradient(145deg,rgba(196,164,255,.19),rgba(255,255,255,.045)); box-shadow: 0 12px 34px rgba(5,3,16,.18); animation: trophyFloat 2.8s ease-in-out infinite; }
+.help-centre { margin-top: clamp(42px, 6vw, 76px); padding: clamp(25px, 4.5vw, 58px); }
+.help-centre-content { gap: 34px; }
+.help-block { padding: 2px; }
+.help-resource-card, .help-mini-card { border-radius: 19px; }
+.help-mini-card { transition: transform .22s ease, border-color .22s ease, background .22s ease; }
+.help-mini-card:hover { transform: translateY(-3px); border-color: rgba(207,177,255,.34); background: rgba(255,255,255,.065); }
+.help-recovery-block { padding: clamp(17px, 2.5vw, 24px); }
+@keyframes scorePop { 0% { transform: scale(.72); opacity: .35; } 65% { transform: scale(1.24); } 100% { transform: scale(1); opacity: 1; } }
+@keyframes answerSettle { from { transform: scale(.985); } to { transform: scale(1); } }
+@keyframes resultReveal { from { opacity: 0; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes meterGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes trophyFloat { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-4px) rotate(-2deg); } }
+@media (max-width: 650px) {
+  .feature-grid { gap: 14px; }
+  .feature-card { border-radius: 19px; }
+  .toolkit-item { min-height: 88px; padding: 15px; }
+  .question-block { border-radius: 19px; }
+  .activity-progress { padding: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .feature-card, .feature-card::after, .feature-icon, .card-link, .card-link .arrow-mark,
+  .toolkit-item, .toolkit-symbol, .answer-button, .help-mini-card { transition: none !important; }
+  .feature-card:hover, .feature-card:focus-within, .toolkit-item:hover, .toolkit-item:focus-visible,
+  .help-mini-card:hover, .answer-button:not(:disabled):hover { transform: none; }
+  .activity-results, .activity-results .result-trophy, .activity-results .result-meter,
+  #activityScore.score-pop, .answer-button:disabled { animation: none !important; }
+}
