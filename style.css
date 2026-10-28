@@ -2841,3 +2841,55 @@ button:hover .arrow-mark,
     transform: none;
   }
 }
+
+
+/* Toolkit guide navigation: compact glass button with dimensional arrow */
+.guide-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 22px;
+  padding: 8px 14px 8px 9px;
+  border: 1px solid rgba(220, 200, 255, .25);
+  border-radius: 15px;
+  color: #E9DEFF;
+  background: linear-gradient(135deg, rgba(196, 168, 255, .16), rgba(132, 94, 194, .10));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 5px 16px rgba(5, 2, 16, .12);
+  font: 700 14px/1.2 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+.guide-back-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(220, 200, 255, .48);
+  background: linear-gradient(135deg, rgba(196, 168, 255, .24), rgba(132, 94, 194, .18));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 8px 22px rgba(5, 2, 16, .2);
+}
+
+.guide-back-button:focus-visible {
+  outline: 3px solid #C9ACFF;
+  outline-offset: 3px;
+}
+
+.guide-back-button .arrow-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  color: #302044;
+  background: linear-gradient(145deg, #F5EDFF, #C9ACFF);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.65), 0 3px 9px rgba(49, 28, 82, .2);
+}
+
+.guide-back-button:hover .arrow-mark {
+  transform: translateX(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guide-back-button,
+  .guide-back-button:hover,
+  .guide-back-button .arrow-mark {
+    transition: none;
+    transform: none;
+  }
+}
