@@ -738,6 +738,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!guide) return;
 
     showPanel(guide.title, `
+      <button class="guide-back-button" type="button" data-back-to-toolkit>
+        <span class="arrow-mark arrow-left" aria-hidden="true">←</span>
+        <span>Back to toolkit</span>
+      </button>
       <p>Here are some practical steps to remember.</p>
       ${guide.body}
       <p><strong>If you feel unsafe, ask a trusted adult for help.</strong></p>
@@ -912,6 +916,13 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
       }
 
+      return;
+    }
+
+    const backToToolkitButton = target.closest('[data-back-to-toolkit]');
+
+    if (backToToolkitButton) {
+      showToolkit();
       return;
     }
 
