@@ -907,7 +907,7 @@ document.addEventListener('DOMContentLoaded', () => {
             data-next-question="true"
             style="background:#635bdb;color:#ffffff;border-color:#635bdb;"
           >
-            ${isLast ? 'View results' : 'Next question'} →
+            ${isLast ? 'View results' : 'Next question'} <span class="arrow-mark arrow-right" aria-hidden="true">→</span>
           </button>
         `;
       }
