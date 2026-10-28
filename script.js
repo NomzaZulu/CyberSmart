@@ -16,16 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  let selectedAge = 'all';
   let toastTimer;
   let activityState = null;
-
-  const ageLabels = {
-    all: 'Everyone',
-    young: 'Classes 1–5',
-    middle: 'Classes 6–8',
-    older: 'Classes 9–12'
-  };
 
   const ageContent = {
     young: {
@@ -448,8 +440,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   function getSelectedAgeContent() {
-    // "Everyone" uses the middle-school examples by default.
-    return ageContent[selectedAge] || ageContent.middle;
+    // Shared toolkit copy; the activities themselves mix questions from all levels.
+    return ageContent.middle;
   }
 
   const panels = {
@@ -574,32 +566,48 @@ document.addEventListener('DOMContentLoaded', () => {
     })[character]);
   }
 
+  function shuffleArray(items) {
+    const shuffled = [...items];
+    for (let i = shuffled.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }
+
   function getQuestionSet(type) {
-    const age = ageContent[selectedAge] ? selectedAge : 'middle';
-    const base = ageContent[age];
+    // Build one shared pool from younger, middle, and older student content.
+    const allQuestions = Object.keys(ageContent).flatMap(age => {
+      const content = ageContent[age];
+      const firstQuestion = type === 'spot'
+        ? {
+            message: content.spotMessage,
+            question: content.spotQuestion,
+            options: content.spotOptions,
+            correct: content.spotCorrect,
+            explanation: content.spotExplanation
+          }
+        : {
+            intro: content.scenarioIntro,
+            question: 'What is the safest choice?',
+            options: content.scenarioOptions,
+            correct: 'safe',
+            explanation: content.scenarioExplanation
+          };
 
-    const firstQuestion = type === 'spot'
-      ? {
-          message: base.spotMessage,
-          question: base.spotQuestion,
-          options: base.spotOptions,
-          correct: base.spotCorrect,
-          explanation: base.spotExplanation
-        }
-      : {
-          intro: base.scenarioIntro,
-          question: 'What is the safest choice?',
-          options: base.scenarioOptions,
-          correct: 'safe',
-          explanation: base.scenarioExplanation
-        };
+      const additional = extraQuestions[age][type].map(question => ({
+        ...question,
+        correct: question.correct || 'safe'
+      }));
 
-    const additional = extraQuestions[age][type].map(question => ({
+      return [firstQuestion, ...additional];
+    });
+
+    // Shuffle both the question order and each question's answer choices each time an activity starts.
+    return shuffleArray(allQuestions).map(question => ({
       ...question,
-      correct: question.correct || 'safe'
+      options: shuffleArray(question.options)
     }));
-
-    return [firstQuestion, ...additional];
   }
 
   function renderActivityQuestion() {
@@ -611,8 +619,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const progress = index + 1;
 
     const title = isSpot
-      ? getSelectedAgeContent().spotTitle
-      : getSelectedAgeContent().scenarioTitle;
+      ? 'Spot the Scam'
+      : 'What Would You Do?';
 
     const options = question.options.map(([value, label]) => `
       <button class="answer-button" data-activity-answer="${value}">
@@ -632,9 +640,13 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
       ${isSpot
         ? `<div class="message-example"><strong>Example message</strong>${escapeHTML(question.message || '')}</div>`
-        : `<p>${escapeHTML(question.intro || '')}</p>`}
-      <h3>${escapeHTML(question.question)}</h3>
-      <div class="answer-list">${options}</div>
+        : `<div class="scenario-intro">${escapeHTML(question.intro || '')}</div>`}
+      <section class="question-block" aria-labelledby="activityQuestionTitle">
+        <div class="question-kicker">YOUR CHOICE</div>
+        <h3 id="activityQuestionTitle">${escapeHTML(question.question)}</h3>
+        <p class="question-instruction">Choose the safest response below.</p>
+        <div class="answer-list">${options}</div>
+      </section>
       <div id="activityFeedback" aria-live="polite"></div>
       <div id="activityControls" style="margin-top:16px;"></div>
     `);
@@ -728,24 +740,6 @@ document.addEventListener('DOMContentLoaded', () => {
       ${guide.body}
       <p><strong>If you feel unsafe, ask a trusted adult for help.</strong></p>
     `);
-  }
-
-  function selectAge(age) {
-    selectedAge = ageContent[age] ? age : 'all';
-
-    document.querySelectorAll('.age-chip').forEach(chip => {
-      const active = chip.dataset.age === selectedAge;
-      chip.classList.toggle('active', active);
-      chip.setAttribute('aria-pressed', String(active));
-    });
-
-    // Keep all main activities visible. The selected group changes the
-    // questions, examples, and explanations inside those activities.
-    document.querySelectorAll('.feature-card').forEach(card => {
-      card.hidden = false;
-    });
-
-    showToast(`Learning level: ${ageLabels[selectedAge] || ageLabels.all}`);
   }
 
   document.addEventListener('click', event => {
@@ -934,12 +928,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  document.querySelectorAll('.age-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      selectAge(chip.dataset.age);
-    });
-  });
-
   if (menuToggle && navLinks) {
     menuToggle.addEventListener('click', () => {
       const isOpen = navLinks.classList.toggle('open');
@@ -968,7 +956,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  selectAge('all');
 
   console.log('CyberSmart loaded successfully. No account or sign-in required.');
 });
