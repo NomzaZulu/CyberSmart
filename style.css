@@ -2277,7 +2277,7 @@ button:focus-visible, a:focus-visible { outline-color: #D3BFFF; }
 
 
 /* =========================================
-   MODERN PURPLE GLASS HEADER (FINAL OVERRIDE)
+   MODERN GLASS HEADER
    ========================================= */
 .header {
   position: sticky;
@@ -2287,32 +2287,192 @@ button:focus-visible, a:focus-visible { outline-color: #D3BFFF; }
   align-items: center;
   justify-content: space-between;
   gap: 28px;
-  padding: 12px clamp(20px, 4vw, 60px);
-  background: rgba(25, 17, 42, .76);
-  border-bottom: 1px solid rgba(226, 211, 255, .13);
-  box-shadow: 0 8px 32px rgba(6, 3, 18, .12);
+  padding: 14px clamp(20px, 4vw, 60px);
+  background: rgba(25, 17, 42, 0.78);
+  border-bottom: 1px solid rgba(226, 211, 255, 0.12);
   backdrop-filter: blur(24px) saturate(150%);
   -webkit-backdrop-filter: blur(24px) saturate(150%);
+  box-shadow: 0 8px 28px rgba(5, 2, 15, 0.12);
 }
-.header .brand { display: inline-flex; align-items: center; gap: 12px; flex-shrink: 0; color: #F4EEFF; text-decoration: none; }
-.header .brand-mark { width: 46px; height: 46px; display: grid; place-items: center; flex-shrink: 0; border-radius: 15px; color: #241638; background: linear-gradient(145deg, #D9C8FF, #A98AF0); border: 1px solid rgba(255,255,255,.35); box-shadow: 0 5px 18px rgba(153,112,236,.25); font-size: 25px; }
-.header .brand-name { color: #F4EEFF; font-family: Manrope, sans-serif; font-size: 21px; font-weight: 800; line-height: 1.15; letter-spacing: -.6px; }
-.header .brand-accent { color: #C6AEFF; }
-.header .brand small { display: block; margin-top: 4px; color: #BDB0D5; font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; }
-.header .nav { display: flex; align-items: center; justify-content: flex-end; gap: clamp(4px, 1vw, 14px); padding: 5px; background: rgba(255,255,255,.035); border: 1px solid rgba(226,211,255,.09); border-radius: 17px; }
-.header .nav > a { display: inline-flex; align-items: center; justify-content: center; padding: 11px 16px; border-radius: 12px; color: #D8CDEB; font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: color 180ms ease, background 180ms ease, transform 180ms ease; }
-.header .nav > a:hover, .header .nav > a.active { color: #FFF; background: rgba(193,166,255,.13); }
-.header .nav > a:hover { transform: translateY(-1px); }
-.header .menu-toggle { display: none; align-items: center; justify-content: center; flex-direction: column; gap: 5px; width: 44px; height: 44px; padding: 10px; color: #F7F2FF; background: rgba(255,255,255,.07); border: 1px solid rgba(226,211,255,.18); border-radius: 14px; cursor: pointer; }
-.header .menu-toggle span { display: block; width: 18px; height: 2px; border-radius: 2px; background: currentColor; }
+.brand { display: inline-flex; align-items: center; gap: 12px; flex-shrink: 0; color: #F7F2FF; text-decoration: none; }
+.brand-mark {
+  width: 46px; height: 46px; border-radius: 15px; display: grid; place-items: center;
+  color: #26183B; background: linear-gradient(145deg, #DDCEFF, #AC8CF0);
+  border: 1px solid rgba(255,255,255,.35); font-size: 25px;
+  box-shadow: 0 5px 22px rgba(157,119,235,.2);
+}
+.brand-name { font-family: Manrope, sans-serif; font-size: 21px; font-weight: 800; line-height: 1.2; letter-spacing: -.6px; }
+.brand-accent { color: #C6AEFF; }
+.brand small { display: block; margin-top: 4px; color: #BDB0D5; font-family: 'DM Sans',sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; }
+.nav {
+  display: flex; align-items: center; justify-content: flex-end; gap: clamp(8px,1.5vw,22px);
+  padding: 6px; background: rgba(255,255,255,.035);
+  border: 1px solid rgba(226,211,255,.09); border-radius: 18px;
+}
+.nav > a {
+  display: inline-flex; align-items: center; justify-content: center; padding: 11px 15px; border-radius: 12px;
+  color: #D3C9E5; font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap;
+  transition: color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+.nav > a:hover, .nav > a.active { color: #FFF; background: rgba(193,166,255,.13); }
+.nav > a:hover { transform: translateY(-1px); }
+.menu-toggle {
+  display: none; align-items: center; justify-content: center; flex-direction: column; gap: 5px;
+  width: 44px; height: 44px; padding: 10px; color: #F7F2FF;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(226,211,255,.18); border-radius: 14px; cursor: pointer;
+}
+.menu-toggle span { display: block; width: 18px; height: 2px; border-radius: 2px; background: currentColor; }
 @media (max-width: 760px) {
-  .header { padding: 12px 18px; gap: 12px; }
-  .header .brand-mark { width: 41px; height: 41px; border-radius: 13px; }
-  .header .brand-name { font-size: 18px; }
-  .header .brand small { font-size: 8px; letter-spacing: 1.1px; }
-  .header .menu-toggle { display: flex; flex-shrink: 0; }
-  .header .nav { display: none; position: absolute; top: calc(100% + 8px); left: 16px; right: 16px; flex-direction: column; align-items: stretch; gap: 4px; padding: 10px; background: rgba(34,24,52,.97); border: 1px solid rgba(226,211,255,.18); border-radius: 18px; backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: 0 16px 40px rgba(5,2,15,.3); }
-  .header .nav.open { display: flex; }
-  .header .nav > a { justify-content: flex-start; padding: 14px; white-space: normal; }
+  .header { padding: 12px 20px; gap: 12px; }
+  .brand-mark { width: 41px; height: 41px; border-radius: 13px; }
+  .brand-name { font-size: 18px; }
+  .brand small { font-size: 8px; letter-spacing: 1.1px; }
+  .menu-toggle { display: flex; flex-shrink: 0; }
+  .nav {
+    display: none; position: absolute; top: calc(100% + 8px); left: 16px; right: 16px;
+    flex-direction: column; align-items: stretch; gap: 4px; padding: 10px;
+    background: rgba(34,24,52,.97); border: 1px solid rgba(226,211,255,.18); border-radius: 18px;
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 16px 40px rgba(5,2,15,.3);
+  }
+  .nav.open { display: flex; }
+  .nav > a { justify-content: flex-start; padding: 14px; white-space: normal; }
 }
-@media (max-width: 380px) { .header { padding-inline: 12px; } .header .brand { gap: 8px; } .header .brand-name { font-size: 16px; } }
+@media (max-width: 380px) { .header { padding-inline: 12px; } .brand { gap: 8px; } .brand-name { font-size: 16px; } }
+
+/* =========================================
+   POLISHED GLASS HEADER + ICON CONTRAST
+   ========================================= */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 104px;
+  scroll-timeline: none;
+}
+
+body {
+  scroll-behavior: smooth;
+}
+
+.header {
+  margin: 10px clamp(12px, 2vw, 28px) 0;
+  padding: 12px clamp(18px, 3.5vw, 48px);
+  border: 1px solid rgba(222, 202, 255, 0.2);
+  border-radius: 22px;
+  background:
+    radial-gradient(ellipse at 12% 0%, rgba(163, 116, 255, 0.16), transparent 42%),
+    linear-gradient(120deg, rgba(47, 31, 70, 0.88), rgba(25, 18, 42, 0.82));
+  box-shadow:
+    0 12px 36px rgba(5, 2, 16, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(28px) saturate(155%);
+  -webkit-backdrop-filter: blur(28px) saturate(155%);
+  transition: background 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -1px;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(204, 174, 255, 0.42), transparent);
+}
+
+.brand-mark {
+  box-shadow:
+    0 7px 24px rgba(157, 119, 235, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.nav {
+  background: rgba(12, 8, 24, 0.22);
+  border-color: rgba(226, 211, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+.nav > a {
+  transition: color 220ms ease, background 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+}
+
+.nav > a:hover,
+.nav > a.active {
+  color: #FFFFFF;
+  background: linear-gradient(135deg, rgba(190, 159, 255, 0.2), rgba(146, 111, 212, 0.13));
+  box-shadow: inset 0 0 0 1px rgba(218, 198, 255, 0.12);
+}
+
+/* Higher-contrast benefit icons in the strip shown in the screenshot. */
+.trust-strip {
+  background: linear-gradient(125deg, rgba(57, 39, 80, 0.88), rgba(39, 29, 59, 0.88));
+  border-color: rgba(222, 202, 255, 0.23);
+  box-shadow: 0 14px 34px rgba(8, 3, 20, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.strip-icon {
+  background: #DCCAFF;
+  color: #42266F;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  box-shadow: 0 5px 16px rgba(7, 3, 18, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  font-weight: 800;
+}
+
+.trust-strip > div:nth-child(2) .strip-icon {
+  background: #FFE3A6;
+  color: #6D4200;
+}
+
+.trust-strip > div:nth-child(3) .strip-icon {
+  background: #B8F0D9;
+  color: #075B45;
+}
+
+.trust-strip strong {
+  color: #FBF8FF;
+}
+
+.trust-strip small {
+  color: #D2C6E5;
+}
+
+/* Smooth anchor navigation with an accessible reduced-motion fallback. */
+:target {
+  scroll-margin-top: 112px;
+}
+
+@media (max-width: 760px) {
+  .header {
+    margin: 8px 10px 0;
+    padding: 10px 14px;
+    border-radius: 18px;
+  }
+
+  .nav {
+    top: calc(100% + 10px);
+    background: rgba(35, 24, 54, 0.97);
+    border: 1px solid rgba(222, 202, 255, 0.2);
+    box-shadow: 0 18px 42px rgba(5, 2, 16, 0.38), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+
+  .trust-strip {
+    border-radius: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
