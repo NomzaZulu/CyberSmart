@@ -1,132 +1,121 @@
-"""Conservative, offline URL structure checks for CyberSmart.
-
-This module never opens or fetches a submitted URL. It does not provide live
-reputation, DNS, certificate, or malware-content checks.
-"""
-
+"""Offline URL pattern checks. This module never opens or visits submitted URLs."""
 import ipaddress
 import re
-from urllib.parse import urlparse, unquote
+from urllib.parse import urlparse
 
-SUSPICIOUS_TERMS = {
-    "login": "login-related URL wording",
-    "verify": "verification-related URL wording",
-    "password": "password-related URL wording",
-    "account": "account-related URL wording",
-    "secure": "security-related URL wording",
-    "signin": "sign-in URL wording",
-    "confirm": "confirmation-related URL wording",
-    "wallet": "wallet-related URL wording",
-    "recover": "account-recovery URL wording",
-}
-KNOWN_BRANDS = (
-    "paypal", "amazon", "google", "microsoft", "apple", "netflix",
-    "instagram", "facebook", "whatsapp",
+
+class URLValidationError(Exception):
+    pass
+
+
+SUSPICIOUS_TERMS = (
+    "login", "verify", "account", "password", "secure", "signin",
+    "confirm", "wallet", "recover", "gift", "prize", "update",
 )
 
 
-def analyse_url(raw_url: str):
-    candidate = raw_url.strip()
-    if not candidate:
-        raise ValueError("Enter a website address to analyse.")
-    if any(ch.isspace() for ch in candidate):
-        raise ValueError("The URL must not contain spaces.")
-    if not re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*://", candidate):
-        candidate = "https://" + candidate
+def analyse_url(raw_url: str) -> dict:
+    raw = raw_url.strip()
+    if not raw or any(ch.isspace() for ch in raw):
+        raise URLValidationError("Enter a valid website address.")
 
-    parsed = urlparse(candidate)
-    if parsed.scheme.lower() not in {"http", "https"}:
-        raise ValueError("Only HTTP and HTTPS website addresses can be checked.")
-    if not parsed.hostname:
-        raise ValueError("That does not look like a valid website address.")
+    candidate = raw if re.match(r"^https?://", raw, re.I) else "https://" + raw
+    try:
+        parsed = urlparse(candidate)
+        host = parsed.hostname
+        # Accessing .port/.hostname can raise ValueError for malformed netlocs.
+        _ = parsed.port
+    except ValueError as exc:
+        raise URLValidationError("The website address is not formatted correctly.") from exc
 
-    host = parsed.hostname.lower().rstrip(".")
-    if host == "localhost" or host.endswith(".localhost"):
-        raise ValueError("Localhost addresses cannot be checked here.")
+    if parsed.scheme.lower() not in {"http", "https"} or not host:
+        raise URLValidationError("Enter a valid HTTP or HTTPS website address.")
 
+    host = host.lower().rstrip(".")
     score = 0
     reasons = []
     threats = []
 
     try:
-        ipaddress.ip_address(host.strip("[]"))
+        ipaddress.ip_address(host)
         score += 30
-        reasons.append("The address uses a raw IP address instead of a normal domain name.")
-        threats.append("IP-address URL")
+        threats.append("IP-address website")
+        reasons.append("The address uses a direct IP address instead of a normal domain name.")
     except ValueError:
         pass
 
-    if parsed.username is not None or parsed.password is not None or "@" in parsed.netloc:
-        score += 25
-        reasons.append("The address contains an @ sign or embedded user information, which can obscure the actual destination.")
-        threats.append("Potentially misleading URL format")
+    if parsed.scheme.lower() != "https":
+        score += 10
+        reasons.append("The address does not use HTTPS. This alone does not prove it is malicious.")
 
-    if host.startswith("xn--") or ".xn--" in host:
+    if "@" in parsed.netloc:
         score += 25
-        reasons.append("The domain uses punycode, which can be used to disguise look-alike characters.")
+        threats.append("Deceptive URL structure")
+        reasons.append("The address contains an @ symbol, which can disguise the actual destination.")
+
+    if "xn--" in host:
+        score += 25
         threats.append("Punycode domain")
+        reasons.append("The domain uses encoded international characters that can sometimes imitate another domain.")
+
+    labels = host.split(".")
+    if len(labels) > 3:
+        score += 10
+        reasons.append("The address has several subdomains. Check the registered domain carefully.")
+
+    if len(candidate) > 100:
+        score += 10
+        reasons.append("The address is unusually long, so inspect its actual domain carefully.")
 
     if host.count("-") >= 3:
         score += 10
-        reasons.append("The domain contains several hyphens; this is a weak warning sign on its own.")
-        threats.append("Unusual domain structure")
+        reasons.append("The domain contains several hyphens, which can be used in lookalike addresses.")
 
-    if len(candidate) > 120:
-        score += 8
-        reasons.append("The web address is unusually long.")
-        threats.append("Unusually long URL")
+    searchable = (host + parsed.path).lower()
+    found = [term for term in SUSPICIOUS_TERMS if term in searchable]
+    if found:
+        score += min(15, 5 + len(found) * 2)
+        reasons.append(
+            "The address contains terms often used in account or reward messages: "
+            + ", ".join(found[:5])
+            + ". These words can also appear on legitimate sites."
+        )
 
-    if len(host.split(".")) >= 5:
-        score += 8
-        reasons.append("The domain has several subdomain levels. Check which part is the registered domain.")
-        threats.append("Complex subdomain structure")
-
-    decoded = unquote(candidate).lower()
     if re.search(r"%[0-9a-fA-F]{2}", candidate):
-        score += 8
-        reasons.append("The address contains encoded characters. This is not automatically malicious, but deserves careful inspection.")
-        threats.append("Encoded URL characters")
+        score += 10
+        reasons.append("The address contains encoded characters that make it harder to read.")
 
-    found_terms = [description for term, description in SUSPICIOUS_TERMS.items() if term in decoded]
-    if found_terms:
-        score += min(12, len(found_terms) * 4)
-        reasons.append("The URL contains wording often seen in account or sign-in links: " + ", ".join(found_terms[:3]) + ".")
-        threats.append("Account-related URL wording")
-
-    path = (parsed.path or "").lower()
-    if re.search(r"\.(exe|scr|bat|cmd|js|vbs|apk|msi)(?:$|/)", path):
-        score += 20
-        reasons.append("The URL path appears to point to an executable or installable file.")
-        threats.append("Potentially risky file download")
-
-    if parsed.scheme.lower() == "http":
-        score += 5
-        reasons.append("The address uses HTTP rather than HTTPS. This alone does not prove the site is malicious.")
-        threats.append("No HTTPS")
-
-    # Flag brand names embedded in a larger, non-matching hostname, but do not
-    # claim impersonation without proper registrable-domain analysis.
-    brand_hits = [brand for brand in KNOWN_BRANDS if brand in host and not (host == brand + ".com" or host.endswith("." + brand + ".com"))]
-    if brand_hits:
-        score += 15
-        reasons.append("The hostname includes a well-known brand name in an unusual domain position: " + ", ".join(brand_hits[:2]) + ".")
-        threats.append("Possible brand-name misuse")
-
-    score = min(100, score)
-    if not reasons:
-        reasons.append("No major structural warning signs were found by these basic checks.")
-
-    if score >= 60:
-        advice = "Do not open the link or enter information. Ask a trusted adult and verify the address through the organisation's official website or app."
-    elif score >= 30:
-        advice = "Be cautious. Do not sign in or share information through this link. Check the exact domain using an official source."
+    score = min(score, 100)
+    if score >= 65:
+        level = "High"
+        advice = (
+            "Do not open the link or enter information. Show it to a trusted adult "
+            "and verify through the organisation's official app or website."
+        )
+    elif score >= 25:
+        level = "Medium"
+        advice = (
+            "Do not sign in through this link. Check the exact domain independently "
+            "and ask a trusted adult if unsure."
+        )
     else:
-        advice = "No major structural warning signs were detected, but that does not prove the site is safe. Only visit sites you intended to visit and verify the domain independently."
+        level = "Low"
+        advice = (
+            "No strong warning signs were found by these checks, but that does not "
+            "prove the website is safe. Only visit sites you trust."
+        )
+
+    if not reasons:
+        reasons.append("No obvious suspicious URL patterns were found by these basic checks.")
 
     return {
+        "risk_level": level,
         "risk_score": score,
         "detected_threats": threats,
         "reasons": reasons,
         "recommended_action": advice,
-        "normalized_url": candidate,
+        "assessment_note": (
+            "This is a basic pattern check, not a live reputation lookup. "
+            "The address was not opened or visited."
+        ),
     }
