@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let toastTimer;
   let activityState = null;
 
+  // Frontend and Python API share the same Vercel deployment.
+  const API_BASE_URL = ''; // Same-origin requests
+
   const ageContent = {
     young: {
       spotTitle: 'Spot the Tricky Message',
@@ -446,20 +449,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const panels = {
     detector: {
-      title: 'Phishing Detector',
+      title: 'Scam Detector',
       html: `
-        <div class="message-example">
-          <strong>🚧 Detector coming soon</strong>
-          The phishing scanner is not connected yet. This website does not currently analyse real messages or links.
+        <div class="detector-intro">
+          <span class="detector-kicker">CYBERSMART CHECK</span>
+          <h3>Something feel suspicious?</h3>
+          <p>Check a message or website address for common scam warning signs. Never enter passwords, OTPs, or other private information.</p>
         </div>
-        <h3>What you can check right now</h3>
-        <ul>
-          <li>Look for urgent demands, threats, or unexpected prizes.</li>
-          <li>Check the sender and the full website address.</li>
-          <li>Never share your password, PIN, or OTP in response to a message.</li>
-          <li>Verify unexpected requests through an official, independent channel.</li>
-        </ul>
-        <p>Practise with fictional examples. Never enter real passwords or OTPs into a training activity.</p>
+        <div class="detector-tabs" role="tablist" aria-label="Choose what to scan">
+          <button class="detector-tab active" type="button" role="tab" aria-selected="true" data-detector-tab="message">Message</button>
+          <button class="detector-tab" type="button" role="tab" aria-selected="false" data-detector-tab="url">Website URL</button>
+        </div>
+        <form class="detector-form" id="messageScanForm">
+          <label for="messageScanInput">Paste the suspicious message</label>
+          <textarea id="messageScanInput" name="message" rows="6" maxlength="6000" placeholder="Example: Your account will be blocked today. Verify your details now..." required></textarea>
+          <div class="detector-field-note"><span>Do not include passwords, OTPs, or personal details.</span><span id="messageCharCount">0 / 6000</span></div>
+          <button class="detector-submit" type="submit"><span>Analyse message</span><span aria-hidden="true">→</span></button>
+        </form>
+        <form class="detector-form" id="urlScanForm" hidden>
+          <label for="urlScanInput">Paste the website address</label>
+          <input id="urlScanInput" name="url" type="url" maxlength="2048" placeholder="https://example.com" required>
+          <div class="detector-field-note"><span>We analyse the address; we do not open it.</span><span>URL only</span></div>
+          <button class="detector-submit" type="submit"><span>Check website URL</span><span aria-hidden="true">→</span></button>
+        </form>
+        <div id="detectorResult" class="detector-result" aria-live="polite"></div>
+        <p class="detector-disclaimer">This tool can make mistakes. A low-risk result does not guarantee that a message or website is safe. When unsure, ask a trusted adult.</p>
       `
     },
 
@@ -767,6 +781,94 @@ document.addEventListener('DOMContentLoaded', () => {
       <p><strong>If you feel unsafe, ask a trusted adult for help.</strong></p>
     `);
   }
+
+
+  function showDetectorResult(result, mode) {
+    const resultBox = document.getElementById('detectorResult');
+    if (!resultBox) return;
+    const level = String(result.risk_level || 'Unknown').toLowerCase();
+    const score = Number.isFinite(Number(result.risk_score)) ? Math.max(0, Math.min(100, Number(result.risk_score))) : null;
+    const reasons = Array.isArray(result.reasons) ? result.reasons : [];
+    const threats = Array.isArray(result.detected_threats) ? result.detected_threats : [];
+    const recommendation = result.recommended_action || 'Do not interact with anything that seems suspicious. Ask a trusted adult if you are unsure.';
+    resultBox.innerHTML = `
+      <div class="detector-result-head">
+        <span class="risk-pill risk-${escapeHTML(level)}">${escapeHTML(result.risk_level || 'Needs review')} risk</span>
+        ${score !== null ? `<strong class="risk-score">${score}<small>/100</small></strong>` : ''}
+      </div>
+      <h4>${mode === 'message' ? 'Message analysis' : 'Website address analysis'}</h4>
+      ${threats.length ? `<div class="detector-tags">${threats.map(item => `<span>${escapeHTML(item)}</span>`).join('')}</div>` : ''}
+      ${reasons.length ? `<ul class="detector-reasons">${reasons.map(item => `<li>${escapeHTML(item)}</li>`).join('')}</ul>` : '<p>No specific explanation was returned. Treat the result cautiously.</p>'}
+      <div class="detector-advice"><strong>What to do</strong><p>${escapeHTML(recommendation)}</p></div>
+      <p class="detector-source-note">${escapeHTML(result.assessment_note || 'Automated assessment. This is not a guarantee of safety.')}</p>
+    `;
+    resultBox.classList.add('visible');
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  async function submitDetectorScan(form, mode) {
+    const resultBox = document.getElementById('detectorResult');
+    const button = form.querySelector('button[type="submit"]');
+    const field = form.querySelector('textarea, input');
+    const value = field ? field.value.trim() : '';
+    if (!value) return;
+    const original = button.innerHTML;
+    button.disabled = true;
+    button.innerHTML = '<span>Checking…</span><span class="detector-spinner" aria-hidden="true"></span>';
+    resultBox.innerHTML = '<div class="detector-loading"><span class="detector-spinner" aria-hidden="true"></span><span>Checking for warning signs…</span></div>';
+    resultBox.classList.add('visible');
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/scan/${mode}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(mode === 'message' ? { message: value } : { url: value })
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.detail || 'The scan could not be completed. Please try again.');
+      showDetectorResult(data, mode);
+    } catch (error) {
+      resultBox.innerHTML = `<div class="detector-error"><strong>We couldn't complete the scan.</strong><p>${escapeHTML(error.message || 'Check your connection and try again.')}</p></div>`;
+      resultBox.classList.add('visible');
+    } finally {
+      button.disabled = false;
+      button.innerHTML = original;
+    }
+  }
+
+  // Detector panel controls are delegated because the panel content is rendered dynamically.
+  panelContent.addEventListener('click', event => {
+    const tab = event.target.closest('[data-detector-tab]');
+    if (!tab) return;
+    const mode = tab.dataset.detectorTab;
+    panelContent.querySelectorAll('[data-detector-tab]').forEach(item => {
+      const active = item === tab;
+      item.classList.toggle('active', active);
+      item.setAttribute('aria-selected', String(active));
+    });
+    const messageForm = document.getElementById('messageScanForm');
+    const urlForm = document.getElementById('urlScanForm');
+    if (messageForm) messageForm.hidden = mode !== 'message';
+    if (urlForm) urlForm.hidden = mode !== 'url';
+    const result = document.getElementById('detectorResult');
+    if (result) { result.innerHTML = ''; result.classList.remove('visible'); }
+  });
+
+  panelContent.addEventListener('submit', event => {
+    if (event.target.id === 'messageScanForm') {
+      event.preventDefault();
+      submitDetectorScan(event.target, 'message');
+    } else if (event.target.id === 'urlScanForm') {
+      event.preventDefault();
+      submitDetectorScan(event.target, 'url');
+    }
+  });
+
+  panelContent.addEventListener('input', event => {
+    if (event.target.id === 'messageScanInput') {
+      const counter = document.getElementById('messageCharCount');
+      if (counter) counter.textContent = `${event.target.value.length} / 6000`;
+    }
+  });
 
   document.addEventListener('click', event => {
     const target = event.target;
