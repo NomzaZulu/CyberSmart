@@ -3773,3 +3773,131 @@ body.scanner-is-loading { overflow: hidden; }
   .scanner-error-heading { font-size: 14px; }
   .scanner-error-card p { font-size: 13px; }
 }
+
+
+/* CyberSmart scan results: consistent, larger and cleaner typography for both modes */
+.activity-panel:has(.scanner-intro) .scanner-feedback.scanner-result {
+  padding: 26px 28px;
+  border-radius: 20px;
+  border-width: 1px;
+  box-shadow: 0 18px 42px rgba(5, 3, 12, .26), inset 0 1px 0 rgba(255,255,255,.055);
+}
+.activity-panel:has(.scanner-intro) .scanner-result-topline {
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 20px;
+}
+.activity-panel:has(.scanner-intro) .scanner-result-heading {
+  gap: 7px;
+}
+.activity-panel:has(.scanner-intro) .scanner-result-heading strong {
+  font-size: 23px;
+  line-height: 1.25;
+  letter-spacing: -.035em;
+}
+.activity-panel:has(.scanner-intro) .scanner-result-kicker,
+.activity-panel:has(.scanner-intro) .scanner-section-label {
+  font-size: 11px;
+  line-height: 1.35;
+  letter-spacing: .14em;
+}
+.activity-panel:has(.scanner-intro) .scanner-risk-pill {
+  padding: 10px 15px;
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: .045em;
+}
+.activity-panel:has(.scanner-intro) .scanner-risk-dot {
+  width: 9px;
+  height: 9px;
+}
+.activity-panel:has(.scanner-intro) .scanner-result-summary {
+  padding: 20px 0 7px;
+}
+.activity-panel:has(.scanner-intro) .scanner-result-summary p {
+  margin-top: 9px;
+  font-size: 17px;
+  line-height: 1.65;
+  font-weight: 500;
+  color: #eee7f8;
+  max-width: 100ch;
+}
+.activity-panel:has(.scanner-intro) .scanner-result-section {
+  margin-top: 17px;
+  padding: 19px 21px;
+  border-radius: 15px;
+}
+.activity-panel:has(.scanner-intro) .scanner-result-section h4 {
+  gap: 11px;
+  margin-bottom: 13px;
+  font-size: 16px;
+  line-height: 1.35;
+}
+.activity-panel:has(.scanner-intro) .scanner-section-icon {
+  width: 27px;
+  height: 27px;
+  border-radius: 8px;
+  font-size: 15px;
+}
+.activity-panel:has(.scanner-intro) .scanner-result-section ul {
+  gap: 11px;
+  padding-left: 22px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: #d8cde6;
+}
+.activity-panel:has(.scanner-intro) .scanner-result-section li {
+  padding-left: 4px;
+}
+.activity-panel:has(.scanner-intro) .scanner-result-note {
+  gap: 7px;
+  margin-top: 18px;
+  padding: 15px 17px;
+  border-left-width: 4px;
+  border-radius: 0 12px 12px 0;
+  font-size: 13px;
+  line-height: 1.65;
+}
+.activity-panel:has(.scanner-intro) .scanner-result-note strong {
+  font-size: 14px;
+  line-height: 1.35;
+}
+.activity-panel:has(.scanner-intro) .scanner-result.risk-unclear .scanner-risk-pill {
+  border-color: rgba(194,164,255,.34);
+  background: rgba(169,135,236,.13);
+  color: #e7d9ff;
+}
+@media (max-width: 700px) {
+  .activity-panel:has(.scanner-intro) .scanner-feedback.scanner-result {
+    padding: 19px 17px;
+    border-radius: 16px;
+  }
+  .activity-panel:has(.scanner-intro) .scanner-result-topline {
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .activity-panel:has(.scanner-intro) .scanner-result-heading strong {
+    font-size: 20px;
+  }
+  .activity-panel:has(.scanner-intro) .scanner-risk-pill {
+    padding: 8px 10px;
+    font-size: 10px;
+  }
+  .activity-panel:has(.scanner-intro) .scanner-result-summary p {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .activity-panel:has(.scanner-intro) .scanner-result-section {
+    padding: 15px 14px;
+  }
+  .activity-panel:has(.scanner-intro) .scanner-result-section h4 {
+    font-size: 15px;
+  }
+  .activity-panel:has(.scanner-intro) .scanner-result-section ul {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .activity-panel:has(.scanner-intro) .scanner-result-note {
+    font-size: 12px;
+  }
+}
