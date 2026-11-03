@@ -3901,3 +3901,74 @@ body.scanner-is-loading { overflow: hidden; }
     font-size: 12px;
   }
 }
+
+
+/* CYBERSMART — consistent, polished risk labels for message and URL results */
+.activity-panel:has(.scanner-intro) .scanner-risk-pill {
+  position: relative;
+  min-height: 40px;
+  padding: 9px 15px 9px 12px;
+  gap: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(13, 9, 23, .62);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.055), 0 5px 16px rgba(0,0,0,.12);
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: .075em;
+  white-space: nowrap;
+}
+.activity-panel:has(.scanner-intro) .scanner-risk-dot {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  border-radius: 50%;
+  background: #c4a9f4;
+  box-shadow: 0 0 0 4px rgba(196,169,244,.14), 0 0 12px rgba(196,169,244,.28);
+}
+.activity-panel:has(.scanner-intro) .scanner-result.risk-high .scanner-risk-pill {
+  color: #ffdce2;
+  border-color: rgba(255,113,133,.42);
+  background: linear-gradient(135deg, rgba(111,35,59,.34), rgba(31,17,39,.88));
+}
+.activity-panel:has(.scanner-intro) .scanner-result.risk-high .scanner-risk-dot {
+  background: #ff7185;
+  box-shadow: 0 0 0 4px rgba(255,113,133,.15), 0 0 13px rgba(255,113,133,.35);
+}
+.activity-panel:has(.scanner-intro) .scanner-result.risk-medium .scanner-risk-pill {
+  color: #ffe8c6;
+  border-color: rgba(255,193,107,.42);
+  background: linear-gradient(135deg, rgba(111,73,29,.32), rgba(31,17,39,.88));
+}
+.activity-panel:has(.scanner-intro) .scanner-result.risk-medium .scanner-risk-dot {
+  background: #ffc16b;
+  box-shadow: 0 0 0 4px rgba(255,193,107,.15), 0 0 13px rgba(255,193,107,.32);
+}
+.activity-panel:has(.scanner-intro) .scanner-result.risk-low .scanner-risk-pill {
+  color: #d6ffef;
+  border-color: rgba(98,216,173,.4);
+  background: linear-gradient(135deg, rgba(24,94,75,.32), rgba(31,17,39,.88));
+}
+.activity-panel:has(.scanner-intro) .scanner-result.risk-low .scanner-risk-dot {
+  background: #62d8ad;
+  box-shadow: 0 0 0 4px rgba(98,216,173,.15), 0 0 13px rgba(98,216,173,.3);
+}
+.activity-panel:has(.scanner-intro) .scanner-result.risk-unclear .scanner-risk-pill {
+  color: #eadfff;
+  border-color: rgba(194,164,255,.42);
+  background: linear-gradient(135deg, rgba(91,65,130,.38), rgba(31,17,39,.9));
+}
+.activity-panel:has(.scanner-intro) .scanner-result.risk-unclear .scanner-risk-dot {
+  background: #c2a4ff;
+  box-shadow: 0 0 0 4px rgba(194,164,255,.16), 0 0 13px rgba(194,164,255,.3);
+}
+@media (max-width: 520px) {
+  .activity-panel:has(.scanner-intro) .scanner-result-topline {
+    flex-wrap: wrap;
+  }
+  .activity-panel:has(.scanner-intro) .scanner-risk-pill {
+    min-height: 35px;
+    padding: 7px 11px;
+    font-size: 10px;
+  }
+}
