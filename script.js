@@ -19,9 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let toastTimer;
   let activityState = null;
 
-  // Frontend and Python API share the same Vercel deployment.
-  const API_BASE_URL = ''; // Same-origin requests
-
   const ageContent = {
     young: {
       spotTitle: 'Spot the Tricky Message',
@@ -451,32 +448,47 @@ document.addEventListener('DOMContentLoaded', () => {
     detector: {
       title: 'Scam Detector',
       html: `
-        <div class="detector-intro">
-          <span class="detector-kicker">CYBERSMART CHECK</span>
-          <h3>Something feel suspicious?</h3>
-          <p>Check a message or website address for common scam warning signs. Never enter passwords, OTPs, or other private information.</p>
+        <div class="scanner-intro">
+          <p>Choose what you want to check. Use fictional or copied examples only—never enter passwords, PINs, or OTPs.</p>
         </div>
-        <div class="detector-tabs" role="tablist" aria-label="Choose what to scan">
-          <button class="detector-tab active" type="button" role="tab" aria-selected="true" data-detector-tab="message">Message</button>
-          <button class="detector-tab" type="button" role="tab" aria-selected="false" data-detector-tab="url">Website URL</button>
+
+        <div class="scanner-tabs" role="tablist" aria-label="Choose scan type">
+          <button class="scanner-tab active" type="button" role="tab" aria-selected="true" data-scanner-tab="message">Text message</button>
+          <button class="scanner-tab" type="button" role="tab" aria-selected="false" data-scanner-tab="url">Website URL</button>
         </div>
-        <form class="detector-form" id="messageScanForm">
-          <label for="messageScanInput">Paste the suspicious message</label>
-          <textarea id="messageScanInput" name="message" rows="6" maxlength="6000" placeholder="Example: Your account will be blocked today. Verify your details now..." required></textarea>
-          <div class="detector-field-note"><span>Do not include passwords, OTPs, or personal details.</span><span id="messageCharCount">0 / 6000</span></div>
-          <button class="detector-submit" type="submit"><span>Analyse message</span><span aria-hidden="true">→</span></button>
-        </form>
-        <form class="detector-form" id="urlScanForm" hidden>
-          <label for="urlScanInput">Paste the website address</label>
-          <input id="urlScanInput" name="url" type="url" maxlength="2048" placeholder="https://example.com" required>
-          <div class="detector-field-note"><span>We analyse the address; we do not open it.</span><span>URL only</span></div>
-          <button class="detector-submit" type="submit"><span>Check website URL</span><span aria-hidden="true">→</span></button>
-        </form>
-        <div id="detectorResult" class="detector-result" aria-live="polite"></div>
-        <p class="detector-disclaimer">This tool can make mistakes. A low-risk result does not guarantee that a message or website is safe. When unsure, ask a trusted adult.</p>
+
+        <section class="scanner-pane active" data-scanner-pane="message">
+          <label class="scanner-label" for="scannerMessage">Paste a suspicious message</label>
+          <textarea id="scannerMessage" class="scanner-input scanner-textarea" rows="7" maxlength="5000" placeholder="Paste the SMS, email, or chat message here..."></textarea>
+          <div class="scanner-meta"><span>Do not include passwords or OTPs.</span><span id="messageCount">0 / 5000</span></div>
+          <button class="scanner-submit" type="button" data-scanner-action="message">Review message <span aria-hidden="true">→</span></button>
+          <div class="scanner-feedback" id="messageScanFeedback" aria-live="polite">Your message review will appear here.</div>
+        </section>
+
+        <section class="scanner-pane" data-scanner-pane="url" hidden>
+          <label class="scanner-label" for="scannerUrl">Enter a website address</label>
+          <input id="scannerUrl" class="scanner-input" type="url" maxlength="2048" placeholder="https://example.com">
+          <p class="scanner-hint">Paste the full link without opening it. Shortened links may hide their final destination.</p>
+          <button class="scanner-submit" type="button" data-scanner-action="url">Review website address <span aria-hidden="true">→</span></button>
+          <div class="scanner-feedback" id="urlScanFeedback" aria-live="polite">Your website address review will appear here.</div>
+        </section>
+
+        <div class="scanner-disclaimer">
+          <strong>Preview mode</strong>
+          <p>This version provides the scanner interface and input placement only. Automated detection is not connected yet, so it will not label a message or website as safe or unsafe.</p>
+        </div>
+
+        <div class="scanner-checklist">
+          <h3>While reviewing, look for:</h3>
+          <ul>
+            <li>Urgent threats, pressure, or unexpected rewards.</li>
+            <li>Requests for passwords, PINs, OTPs, or payment.</li>
+            <li>Sender names or website addresses that imitate trusted organisations.</li>
+            <li>Links that do not match the organisation's official domain.</li>
+          </ul>
+        </div>
       `
     },
-
     toolkit: {
       title: 'Cyber Safety Toolkit',
       html: ''
@@ -782,94 +794,6 @@ document.addEventListener('DOMContentLoaded', () => {
     `);
   }
 
-
-  function showDetectorResult(result, mode) {
-    const resultBox = document.getElementById('detectorResult');
-    if (!resultBox) return;
-    const level = String(result.risk_level || 'Unknown').toLowerCase();
-    const score = Number.isFinite(Number(result.risk_score)) ? Math.max(0, Math.min(100, Number(result.risk_score))) : null;
-    const reasons = Array.isArray(result.reasons) ? result.reasons : [];
-    const threats = Array.isArray(result.detected_threats) ? result.detected_threats : [];
-    const recommendation = result.recommended_action || 'Do not interact with anything that seems suspicious. Ask a trusted adult if you are unsure.';
-    resultBox.innerHTML = `
-      <div class="detector-result-head">
-        <span class="risk-pill risk-${escapeHTML(level)}">${escapeHTML(result.risk_level || 'Needs review')} risk</span>
-        ${score !== null ? `<strong class="risk-score">${score}<small>/100</small></strong>` : ''}
-      </div>
-      <h4>${mode === 'message' ? 'Message analysis' : 'Website address analysis'}</h4>
-      ${threats.length ? `<div class="detector-tags">${threats.map(item => `<span>${escapeHTML(item)}</span>`).join('')}</div>` : ''}
-      ${reasons.length ? `<ul class="detector-reasons">${reasons.map(item => `<li>${escapeHTML(item)}</li>`).join('')}</ul>` : '<p>No specific explanation was returned. Treat the result cautiously.</p>'}
-      <div class="detector-advice"><strong>What to do</strong><p>${escapeHTML(recommendation)}</p></div>
-      <p class="detector-source-note">${escapeHTML(result.assessment_note || 'Automated assessment. This is not a guarantee of safety.')}</p>
-    `;
-    resultBox.classList.add('visible');
-    resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-
-  async function submitDetectorScan(form, mode) {
-    const resultBox = document.getElementById('detectorResult');
-    const button = form.querySelector('button[type="submit"]');
-    const field = form.querySelector('textarea, input');
-    const value = field ? field.value.trim() : '';
-    if (!value) return;
-    const original = button.innerHTML;
-    button.disabled = true;
-    button.innerHTML = '<span>Checking…</span><span class="detector-spinner" aria-hidden="true"></span>';
-    resultBox.innerHTML = '<div class="detector-loading"><span class="detector-spinner" aria-hidden="true"></span><span>Checking for warning signs…</span></div>';
-    resultBox.classList.add('visible');
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/scan/${mode}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(mode === 'message' ? { message: value } : { url: value })
-      });
-      const data = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(data.detail || 'The scan could not be completed. Please try again.');
-      showDetectorResult(data, mode);
-    } catch (error) {
-      resultBox.innerHTML = `<div class="detector-error"><strong>We couldn't complete the scan.</strong><p>${escapeHTML(error.message || 'Check your connection and try again.')}</p></div>`;
-      resultBox.classList.add('visible');
-    } finally {
-      button.disabled = false;
-      button.innerHTML = original;
-    }
-  }
-
-  // Detector panel controls are delegated because the panel content is rendered dynamically.
-  panelContent.addEventListener('click', event => {
-    const tab = event.target.closest('[data-detector-tab]');
-    if (!tab) return;
-    const mode = tab.dataset.detectorTab;
-    panelContent.querySelectorAll('[data-detector-tab]').forEach(item => {
-      const active = item === tab;
-      item.classList.toggle('active', active);
-      item.setAttribute('aria-selected', String(active));
-    });
-    const messageForm = document.getElementById('messageScanForm');
-    const urlForm = document.getElementById('urlScanForm');
-    if (messageForm) messageForm.hidden = mode !== 'message';
-    if (urlForm) urlForm.hidden = mode !== 'url';
-    const result = document.getElementById('detectorResult');
-    if (result) { result.innerHTML = ''; result.classList.remove('visible'); }
-  });
-
-  panelContent.addEventListener('submit', event => {
-    if (event.target.id === 'messageScanForm') {
-      event.preventDefault();
-      submitDetectorScan(event.target, 'message');
-    } else if (event.target.id === 'urlScanForm') {
-      event.preventDefault();
-      submitDetectorScan(event.target, 'url');
-    }
-  });
-
-  panelContent.addEventListener('input', event => {
-    if (event.target.id === 'messageScanInput') {
-      const counter = document.getElementById('messageCharCount');
-      if (counter) counter.textContent = `${event.target.value.length} / 6000`;
-    }
-  });
-
   document.addEventListener('click', event => {
     const target = event.target;
 
@@ -1094,6 +1018,63 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+
+  // Scam Detector preview interactions (UI only; no API or automated verdict).
+  document.addEventListener('click', event => {
+    const tab = event.target.closest('[data-scanner-tab]');
+    if (tab) {
+      const selected = tab.dataset.scannerTab;
+      panelContent.querySelectorAll('[data-scanner-tab]').forEach(button => {
+        const active = button.dataset.scannerTab === selected;
+        button.classList.toggle('active', active);
+        button.setAttribute('aria-selected', String(active));
+      });
+      panelContent.querySelectorAll('[data-scanner-pane]').forEach(pane => {
+        const active = pane.dataset.scannerPane === selected;
+        pane.hidden = !active;
+        pane.classList.toggle('active', active);
+      });
+      return;
+    }
+
+    const action = event.target.closest('[data-scanner-action]');
+    if (!action) return;
+
+    const type = action.dataset.scannerAction;
+    const feedback = document.getElementById(
+      type === 'message' ? 'messageScanFeedback' : 'urlScanFeedback'
+    );
+    const input = document.getElementById(
+      type === 'message' ? 'scannerMessage' : 'scannerUrl'
+    );
+    const value = input ? input.value.trim() : '';
+
+    if (!value) {
+      feedback.textContent = type === 'message'
+        ? 'Paste a message before continuing.'
+        : 'Enter a website address before continuing.';
+      feedback.className = 'scanner-feedback warning';
+      if (input) input.focus();
+      return;
+    }
+
+    if (type === 'url' && !/^(https?:\/\/)?[^\s.]+(\.[^\s.]+)+/i.test(value)) {
+      feedback.textContent = 'That does not look like a complete website address. Check the spelling and try again.';
+      feedback.className = 'scanner-feedback warning';
+      input.focus();
+      return;
+    }
+
+    feedback.textContent = 'Your input has been added to the preview. Automated scanning is not connected in this version, so no risk verdict has been generated.';
+    feedback.className = 'scanner-feedback preview';
+  });
+
+  document.addEventListener('input', event => {
+    if (event.target.id === 'scannerMessage') {
+      const counter = document.getElementById('messageCount');
+      if (counter) counter.textContent = `${event.target.value.length} / 5000`;
+    }
+  });
 
   console.log('CyberSmart loaded successfully. No account or sign-in required.');
 });
