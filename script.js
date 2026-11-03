@@ -1048,18 +1048,19 @@ document.addEventListener('DOMContentLoaded', () => {
     feedback.innerHTML = `
       <div class="scanner-result-topline">
         <div class="scanner-result-heading">
-          <span class="scanner-result-kicker">SCAN COMPLETE</span>
+          <span class="scanner-result-kicker"><span class="scanner-complete-mark">✓</span> SCAN COMPLETE</span>
           <strong>AI assessment</strong>
+          <span class="scanner-result-subtitle">Here’s what the scan found and what you should do next.</span>
         </div>
         <span class="scanner-risk-pill"><span class="scanner-risk-dot"></span>${escapeScannerHtml(safeLevel.toUpperCase())} RISK</span>
       </div>
       <div class="scanner-result-summary">
-        <span class="scanner-section-label">SUMMARY</span>
+        <span class="scanner-section-label"><span class="scanner-summary-icon">✦</span> QUICK SUMMARY</span>
         <p>${escapeScannerHtml(result.summary || 'The message has been reviewed.')}</p>
       </div>
-      ${reasons.length ? `<section class="scanner-result-section scanner-warning-section"><h4><span class="scanner-section-icon">!</span> Warning signs</h4><ul>${reasons.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul></section>` : ''}
-      ${advice.length ? `<section class="scanner-result-section scanner-advice-section"><h4><span class="scanner-section-icon">✓</span> What to do</h4><ul>${advice.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul></section>` : ''}
-      <div class="scanner-result-note"><strong>Stay cautious</strong><span>AI assessments can be wrong. Do not click suspicious links or share passwords, PINs, or OTPs. Verify important requests independently.</span></div>
+      ${reasons.length ? `<section class="scanner-result-section scanner-warning-section"><h4><span class="scanner-section-icon">!</span><span>Warning signs</span><span class="scanner-section-count">${reasons.length}</span></h4><ul>${reasons.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul></section>` : ''}
+      ${advice.length ? `<section class="scanner-result-section scanner-advice-section"><h4><span class="scanner-section-icon">✓</span><span>What to do</span><span class="scanner-section-count">${advice.length}</span></h4><ul>${advice.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul></section>` : ''}
+      <div class="scanner-result-note"><span class="scanner-note-icon">i</span><div><strong>Stay cautious</strong><span>AI assessments can be wrong. Do not click suspicious links or share passwords, PINs, or OTPs. Verify important requests independently.</span></div></div>
     `;
   }
 
