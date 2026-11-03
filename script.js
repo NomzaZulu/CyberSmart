@@ -1029,14 +1029,56 @@ document.addEventListener('DOMContentLoaded', () => {
     })[char]);
   }
 
-  function showScannerLoading(feedback, label) {
-    feedback.className = 'scanner-feedback preview';
-    feedback.textContent = label;
+  let scannerOverlay = null;
+  let lastFailedScan = null;
+
+  function ensureScannerOverlay() {
+    if (scannerOverlay) return scannerOverlay;
+    scannerOverlay = document.createElement('div');
+    scannerOverlay.className = 'scanner-loading-overlay';
+    scannerOverlay.hidden = true;
+    scannerOverlay.setAttribute('role', 'dialog');
+    scannerOverlay.setAttribute('aria-modal', 'true');
+    scannerOverlay.setAttribute('aria-live', 'polite');
+    scannerOverlay.innerHTML = `
+      <div class="scanner-loading-card">
+        <div class="scanner-loading-orbit"><span class="scanner-loading-icon">✳</span></div>
+        <span class="scanner-loading-kicker">CYBERSMART SECURITY CHECK</span>
+        <h3 class="scanner-loading-title">Analysing your message</h3>
+        <p class="scanner-loading-copy">We're checking for suspicious language, phishing attempts and common scam signals.</p>
+        <div class="scanner-loading-track"><span></span></div>
+        <span class="scanner-loading-footnote">Please wait. This usually takes a few seconds.</span>
+      </div>`;
+    document.body.appendChild(scannerOverlay);
+    return scannerOverlay;
   }
 
-  function showScannerError(feedback, message) {
-    feedback.className = 'scanner-feedback warning';
-    feedback.textContent = message;
+  function showScannerLoading(label, detail) {
+    const overlay = ensureScannerOverlay();
+    overlay.querySelector('.scanner-loading-title').textContent = label;
+    overlay.querySelector('.scanner-loading-copy').textContent = detail;
+    overlay.hidden = false;
+    document.body.classList.add('scanner-is-loading');
+  }
+
+  function hideScannerLoading() {
+    if (scannerOverlay) scannerOverlay.hidden = true;
+    document.body.classList.remove('scanner-is-loading');
+  }
+
+  function showScannerError(feedback, message, retry = false) {
+    feedback.className = 'scanner-feedback warning scanner-error-card';
+    feedback.innerHTML = `<div class="scanner-error-heading"><span class="scanner-error-symbol">!</span><strong>We couldn't complete the check</strong></div><p>${escapeScannerHtml(message)}</p>${retry ? '<button type="button" class="scanner-retry-button" data-scanner-retry>Try again <span aria-hidden="true">↻</span></button>' : ''}`;
+  }
+
+  function explainGroqError(status, detail) {
+    if (status === 401 || status === 403) return 'The scanner could not access the AI service. The API key may be invalid or may not have permission. Please contact the website administrator.';
+    if (status === 429) return 'The AI scanner has reached its current usage limit or is receiving too many requests. Please wait a little and try again.';
+    if (status === 408) return 'The AI service took too long to respond. Please try again.';
+    if (status >= 500) return 'The AI service is temporarily unavailable. Please try again in a few minutes.';
+    if (status === 400 && /model/i.test(detail)) return 'The selected AI model is unavailable for this account. Please contact the website administrator.';
+    if (status === 400) return 'The AI service could not process this request. Try a shorter message.';
+    return 'The AI scanner could not complete the review. Please try again later.';
   }
 
   function renderMessageAnalysis(feedback, result) {
@@ -1048,30 +1090,34 @@ document.addEventListener('DOMContentLoaded', () => {
     feedback.innerHTML = `
       <div class="scanner-result-topline">
         <div class="scanner-result-heading">
-          <span class="scanner-result-kicker"><span class="scanner-complete-mark">✓</span> SCAN COMPLETE</span>
+          <span class="scanner-result-kicker">SCAN COMPLETE</span>
           <strong>AI assessment</strong>
-          <span class="scanner-result-subtitle">Here’s what the scan found and what you should do next.</span>
         </div>
         <span class="scanner-risk-pill"><span class="scanner-risk-dot"></span>${escapeScannerHtml(safeLevel.toUpperCase())} RISK</span>
       </div>
       <div class="scanner-result-summary">
-        <span class="scanner-section-label"><span class="scanner-summary-icon">✦</span> QUICK SUMMARY</span>
+        <span class="scanner-section-label">SUMMARY</span>
         <p>${escapeScannerHtml(result.summary || 'The message has been reviewed.')}</p>
       </div>
-      ${reasons.length ? `<section class="scanner-result-section scanner-warning-section"><h4><span class="scanner-section-icon">!</span><span>Warning signs</span><span class="scanner-section-count">${reasons.length}</span></h4><ul>${reasons.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul></section>` : ''}
-      ${advice.length ? `<section class="scanner-result-section scanner-advice-section"><h4><span class="scanner-section-icon">✓</span><span>What to do</span><span class="scanner-section-count">${advice.length}</span></h4><ul>${advice.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul></section>` : ''}
-      <div class="scanner-result-note"><span class="scanner-note-icon">i</span><div><strong>Stay cautious</strong><span>AI assessments can be wrong. Do not click suspicious links or share passwords, PINs, or OTPs. Verify important requests independently.</span></div></div>
+      ${reasons.length ? `<section class="scanner-result-section scanner-warning-section"><h4><span class="scanner-section-icon">!</span> Warning signs</h4><ul>${reasons.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul></section>` : ''}
+      ${advice.length ? `<section class="scanner-result-section scanner-advice-section"><h4><span class="scanner-section-icon">✓</span> What to do</h4><ul>${advice.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul></section>` : ''}
+      <div class="scanner-result-note"><strong>Stay cautious</strong><span>AI assessments can be wrong. Do not click suspicious links or share passwords, PINs, or OTPs. Verify important requests independently.</span></div>
     `;
   }
 
   async function scanMessageWithGroq(message, feedback, button) {
     const originalLabel = button.innerHTML;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 25000);
     button.disabled = true;
-    button.textContent = 'Analysing message…';
-    showScannerLoading(feedback, 'Checking the message for common scam and phishing warning signs…');
+    button.setAttribute('aria-busy', 'true');
+    button.textContent = 'Analysing…';
+    lastFailedScan = { type: 'message', value: message };
+    showScannerLoading('Analysing your message', "We’re checking for suspicious language, phishing attempts and common scam signals.");
     try {
       const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
+        signal: controller.signal,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${GROQ_API_KEY}`
@@ -1092,20 +1138,33 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
-        const detail = data?.error?.message || `Groq API returned HTTP ${response.status}.`;
-        throw new Error(detail);
+        const detail = data?.error?.message || '';
+        const error = new Error(explainGroqError(response.status, detail));
+        error.userMessage = error.message;
+        throw error;
       }
       const raw = data?.choices?.[0]?.message?.content;
-      if (!raw) throw new Error('The AI returned an empty response. Please try again.');
+      if (!raw) throw new Error('The AI service returned an empty result. Please try again.');
       let parsed;
       try { parsed = JSON.parse(raw); }
       catch { throw new Error('The AI response could not be read. Please try again.'); }
+      if (!parsed || typeof parsed !== 'object' || !parsed.risk_level || !parsed.summary) {
+        throw new Error('The AI returned an incomplete assessment. Please try again.');
+      }
       renderMessageAnalysis(feedback, parsed);
+      lastFailedScan = null;
     } catch (error) {
       console.error('CyberSmart message scan failed:', error);
-      showScannerError(feedback, `Could not complete the AI review. ${error.message || 'Check your connection and try again.'}`);
+      let messageText = error.userMessage;
+      if (!messageText && error.name === 'AbortError') messageText = 'The review timed out after 25 seconds. Check your connection and try again.';
+      if (!messageText && (error instanceof TypeError || /fetch/i.test(error.message || ''))) messageText = 'We could not connect to the AI service. Check your internet connection and try again.';
+      if (!messageText) messageText = error.message || 'Something went wrong. Please try again.';
+      showScannerError(feedback, messageText, true);
     } finally {
+      clearTimeout(timeoutId);
+      hideScannerLoading();
       button.disabled = false;
+      button.removeAttribute('aria-busy');
       button.innerHTML = originalLabel;
     }
   }
@@ -1175,6 +1234,18 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const retry = event.target.closest('[data-scanner-retry]');
+    if (retry && lastFailedScan) {
+      const retryType = lastFailedScan.type;
+      const retryInput = document.getElementById(retryType === 'message' ? 'scannerMessage' : 'scannerUrl');
+      const retryButton = panelContent.querySelector(`[data-scanner-action="${retryType}"]`);
+      if (retryInput && retryButton) {
+        retryInput.value = lastFailedScan.value;
+        retryButton.click();
+      }
+      return;
+    }
+
     const action = event.target.closest('[data-scanner-action]');
     if (!action) return;
     const type = action.dataset.scannerAction;
@@ -1193,8 +1264,29 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       await scanMessageWithGroq(value, feedback, action);
     } else {
-      const result = analyseUrlLocally(value);
-      renderUrlAnalysis(feedback, result);
+      if (action.disabled) return;
+      action.disabled = true;
+      const originalLabel = action.innerHTML;
+      action.setAttribute('aria-busy', 'true');
+      action.textContent = 'Checking address…';
+      lastFailedScan = null;
+      showScannerLoading('Checking this website address', "We’re checking the address for common URL warning signs. This check does not open the website.");
+      const startedAt = Date.now();
+      try {
+        const result = analyseUrlLocally(value);
+        const elapsed = Date.now() - startedAt;
+        if (elapsed < 650) await new Promise(resolve => setTimeout(resolve, 650 - elapsed));
+        renderUrlAnalysis(feedback, result);
+      } catch (error) {
+        console.error('CyberSmart URL check failed:', error);
+        showScannerError(feedback, 'We could not check this address. Please review it and try again.', true);
+        lastFailedScan = { type: 'url', value };
+      } finally {
+        hideScannerLoading();
+        action.disabled = false;
+        action.removeAttribute('aria-busy');
+        action.innerHTML = originalLabel;
+      }
     }
   });
 
