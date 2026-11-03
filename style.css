@@ -4182,3 +4182,132 @@ body {
   .how-step, .feature-card, .toolkit-item, .nav > a { transition: none !important; }
   .how-step:hover, .feature-card:hover, .toolkit-item:hover { transform: none !important; }
 }
+
+
+/* =========================================================
+   FEATURE CARDS — REFINED VISUAL HIERARCHY
+   Cleaner surfaces, stronger contrast, quieter artwork.
+   ========================================================= */
+.feature-grid {
+  align-items: stretch;
+  gap: 20px;
+}
+.feature-card {
+  min-height: 356px;
+  padding: 25px 24px 22px;
+  border-radius: 24px;
+  border: 1px solid rgba(205, 180, 255, .23);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(177, 139, 238, .10), transparent 42%),
+    linear-gradient(155deg, #302342 0%, #241a35 58%, #1e172d 100%);
+  box-shadow: 0 14px 34px rgba(5, 3, 13, .16),
+              inset 0 1px 0 rgba(255,255,255,.055);
+  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+}
+.feature-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(199, 168, 255, .52);
+  box-shadow: 0 20px 42px rgba(5,3,13,.25),
+              0 0 0 1px rgba(195,168,255,.06);
+}
+.card-top {
+  align-items: center;
+  margin-bottom: 25px;
+}
+.feature-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 15px;
+  background: linear-gradient(145deg, rgba(195,168,255,.22), rgba(145,111,192,.13));
+  color: #e3d3ff;
+  border: 1px solid rgba(195,168,255,.27);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+}
+.card-label {
+  max-width: 58%;
+  padding: 8px 11px;
+  border-radius: 9px;
+  border: 1px solid rgba(195,168,255,.25);
+  background: rgba(17,12,27,.34);
+  color: #cbb7ee;
+  font-size: 9px;
+  line-height: 1.35;
+  letter-spacing: .11em;
+}
+.feature-card h3 {
+  margin: 0 0 12px;
+  color: #f8f4ff;
+  font-size: clamp(21px, 1.55vw, 25px);
+  line-height: 1.22;
+  letter-spacing: -.035em;
+  overflow-wrap: normal;
+}
+.feature-card p {
+  flex: 1 1 auto;
+  margin: 0 0 22px;
+  max-width: 34ch;
+  color: #c9bddb;
+  font-size: 14px;
+  line-height: 1.72;
+}
+.feature-card .card-link {
+  min-height: 54px;
+  margin: auto 0 0;
+  padding: 12px 14px 12px 17px;
+  border: 1px solid rgba(220,204,255,.32);
+  border-radius: 14px;
+  background: linear-gradient(115deg, #b995f5, #8f68d0);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 750;
+  box-shadow: 0 8px 20px rgba(116,79,177,.23),
+              inset 0 1px 0 rgba(255,255,255,.2);
+}
+.feature-card .card-link:hover {
+  background: linear-gradient(115deg, #c8adff, #a27ce4);
+  border-color: rgba(235,224,255,.6);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 11px 24px rgba(116,79,177,.32);
+}
+.feature-card .card-link .arrow-mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  background: rgba(36,22,55,.2);
+  border: 1px solid rgba(255,255,255,.25);
+  color: #fff;
+  font-size: 19px;
+}
+.feature-card .card-illustration {
+  top: auto;
+  left: auto;
+  right: 12px;
+  bottom: 82px;
+  width: 112px;
+  height: 78px;
+  opacity: .055;
+  transform: scale(.9);
+  transform-origin: bottom right;
+}
+.feature-card:hover .card-illustration { opacity: .09; }
+.card-illustration .mini-message,
+.card-illustration .chat-bubble { box-shadow: none; }
+.feature-card:focus-within {
+  outline: 2px solid rgba(195,168,255,.72);
+  outline-offset: 3px;
+}
+@media (max-width: 900px) {
+  .feature-card { min-height: 330px; }
+  .feature-card h3 { font-size: 22px; }
+}
+@media (max-width: 620px) {
+  .feature-grid { gap: 14px; }
+  .feature-card { min-height: 300px; padding: 21px 20px 19px; }
+  .card-top { margin-bottom: 20px; }
+  .feature-card h3 { font-size: 22px; }
+  .feature-card p { font-size: 14px; max-width: 38ch; }
+  .feature-card .card-link { min-height: 51px; }
+}
