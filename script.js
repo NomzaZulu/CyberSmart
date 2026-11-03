@@ -1046,11 +1046,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const advice = Array.isArray(result.recommended_actions) ? result.recommended_actions : [];
     feedback.className = `scanner-feedback scanner-result risk-${safeLevel}`;
     feedback.innerHTML = `
-      <div class="scanner-result-heading"><strong>AI assessment</strong><span class="scanner-risk-pill">${escapeScannerHtml(safeLevel.toUpperCase())} RISK</span></div>
-      <p>${escapeScannerHtml(result.summary || 'The message has been reviewed.')}</p>
-      ${reasons.length ? `<strong>Warning signs</strong><ul>${reasons.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul>` : ''}
-      ${advice.length ? `<strong>What to do</strong><ul>${advice.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul>` : ''}
-      <p class="scanner-result-note">AI assessments can be wrong. Do not click suspicious links or share passwords, PINs, or OTPs. Verify important requests independently.</p>
+      <div class="scanner-result-topline">
+        <div class="scanner-result-heading">
+          <span class="scanner-result-kicker">SCAN COMPLETE</span>
+          <strong>AI assessment</strong>
+        </div>
+        <span class="scanner-risk-pill"><span class="scanner-risk-dot"></span>${escapeScannerHtml(safeLevel.toUpperCase())} RISK</span>
+      </div>
+      <div class="scanner-result-summary">
+        <span class="scanner-section-label">SUMMARY</span>
+        <p>${escapeScannerHtml(result.summary || 'The message has been reviewed.')}</p>
+      </div>
+      ${reasons.length ? `<section class="scanner-result-section scanner-warning-section"><h4><span class="scanner-section-icon">!</span> Warning signs</h4><ul>${reasons.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul></section>` : ''}
+      ${advice.length ? `<section class="scanner-result-section scanner-advice-section"><h4><span class="scanner-section-icon">✓</span> What to do</h4><ul>${advice.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul></section>` : ''}
+      <div class="scanner-result-note"><strong>Stay cautious</strong><span>AI assessments can be wrong. Do not click suspicious links or share passwords, PINs, or OTPs. Verify important requests independently.</span></div>
     `;
   }
 
@@ -1137,11 +1146,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const level = result.risk.toLowerCase();
     feedback.className = `scanner-feedback scanner-result risk-${level}`;
     feedback.innerHTML = `
-      <div class="scanner-result-heading"><strong>Website address check</strong><span class="scanner-risk-pill">${escapeScannerHtml(result.risk.toUpperCase())} RISK</span></div>
-      <p>${escapeScannerHtml(result.summary)}</p>
-      <strong>What the checks found</strong><ul>${result.signs.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul>
-      <strong>Recommended actions</strong><ul>${result.actions.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul>
-      <p class="scanner-result-note">This is a basic URL pattern check, not a live website reputation lookup. It does not visit the site or guarantee that it is safe or malicious.</p>
+      <div class="scanner-result-topline">
+        <div class="scanner-result-heading"><span class="scanner-result-kicker">CHECK COMPLETE</span><strong>Website address check</strong></div>
+        <span class="scanner-risk-pill"><span class="scanner-risk-dot"></span>${escapeScannerHtml(result.risk.toUpperCase())} RISK</span>
+      </div>
+      <div class="scanner-result-summary"><span class="scanner-section-label">SUMMARY</span><p>${escapeScannerHtml(result.summary)}</p></div>
+      <section class="scanner-result-section scanner-warning-section"><h4><span class="scanner-section-icon">!</span> What the checks found</h4><ul>${result.signs.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul></section>
+      <section class="scanner-result-section scanner-advice-section"><h4><span class="scanner-section-icon">✓</span> Recommended actions</h4><ul>${result.actions.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul></section>
+      <div class="scanner-result-note"><strong>Limit of this check</strong><span>This is a basic URL pattern check, not a live website reputation lookup. It does not visit the site or guarantee that it is safe or malicious.</span></div>
     `;
   }
 
