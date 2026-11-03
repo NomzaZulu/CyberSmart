@@ -3533,3 +3533,44 @@ body { letter-spacing: .005em; }
   .scanner-textarea { min-height: 175px; }
   .scanner-submit { min-height: 58px; }
 }
+
+
+/* FINAL SCAM DETECTOR PASS — dark input surfaces (per latest feedback) */
+.activity-panel:has(.scanner-intro) .scanner-intro {
+  background: rgba(20, 14, 34, .92);
+  color: #c4b8d5;
+  border-color: rgba(220, 200, 255, .20);
+}
+.activity-panel:has(.scanner-intro) .scanner-tabs {
+  background: rgba(15, 10, 26, .72);
+}
+.activity-panel:has(.scanner-intro) .scanner-tab.active {
+  background: #302344;
+  color: #c6aaff;
+  border-color: #b99aff;
+  box-shadow: inset 0 0 0 1px rgba(185,154,255,.10);
+}
+.activity-panel:has(.scanner-intro) .scanner-input {
+  background: #1b1428;
+  color: #f7f2ff;
+  border-color: rgba(220, 200, 255, .28);
+  caret-color: #c3a4ff;
+}
+.activity-panel:has(.scanner-intro) .scanner-input::placeholder {
+  color: #a99abf;
+  opacity: 1;
+}
+.activity-panel:has(.scanner-intro) .scanner-input:focus {
+  background: #211832;
+  border-color: #b99aff;
+  box-shadow: 0 0 0 3px rgba(185,154,255,.18);
+}
+.activity-panel:has(.scanner-intro) .scanner-feedback {
+  background: rgba(20, 14, 34, .92);
+  color: #c4b8d5;
+  border-color: rgba(220, 200, 255, .20);
+}
+.activity-panel:has(.scanner-intro) .scanner-feedback.preview {
+  background: rgba(255,255,255,.055);
+  color: #e6dcf4;
+}
