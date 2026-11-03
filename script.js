@@ -1021,7 +1021,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Scam Detector: Groq AI for messages + local heuristic checks for URLs.
   const GROQ_API_KEY = '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';
-  const GROQ_MODEL = 'llama-3.3-70b-versatile';
+  const GROQ_MODEL = 'openai/gpt-oss-20b';
 
   function escapeScannerHtml(value) {
     return String(value ?? '').replace(/[&<>"']/g, char => ({
