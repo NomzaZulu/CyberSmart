@@ -1093,7 +1093,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <span class="scanner-result-kicker">SCAN COMPLETE</span>
           <strong>AI assessment</strong>
         </div>
-        <span class="scanner-risk-pill"><span class="scanner-risk-dot"></span>${escapeScannerHtml(safeLevel.toUpperCase())} RISK</span>
+        <span class="scanner-risk-pill"><span class="scanner-risk-dot"></span>${safeLevel === 'unclear' ? 'NEEDS REVIEW' : `${escapeScannerHtml(safeLevel.toUpperCase())} RISK`}</span>
       </div>
       <div class="scanner-result-summary">
         <span class="scanner-section-label">SUMMARY</span>
@@ -1208,7 +1208,7 @@ document.addEventListener('DOMContentLoaded', () => {
     feedback.innerHTML = `
       <div class="scanner-result-topline">
         <div class="scanner-result-heading"><span class="scanner-result-kicker">CHECK COMPLETE</span><strong>Website address check</strong></div>
-        <span class="scanner-risk-pill"><span class="scanner-risk-dot"></span>${escapeScannerHtml(result.risk.toUpperCase())} RISK</span>
+        <span class="scanner-risk-pill"><span class="scanner-risk-dot"></span>${result.risk.toLowerCase() === 'unclear' ? 'NOT VERIFIED' : `${escapeScannerHtml(result.risk.toUpperCase())} RISK`}</span>
       </div>
       <div class="scanner-result-summary"><span class="scanner-section-label">SUMMARY</span><p>${escapeScannerHtml(result.summary)}</p></div>
       <section class="scanner-result-section scanner-warning-section"><h4><span class="scanner-section-icon">!</span> What the checks found</h4><ul>${result.signs.map(item => `<li>${escapeScannerHtml(item)}</li>`).join('')}</ul></section>
