@@ -3243,14 +3243,15 @@ body { letter-spacing: .005em; }
 
 /* =========================================
    SCAM DETECTOR — INTERFACE PREVIEW
+   Uses the existing CyberSmart design tokens.
    ========================================= */
 .scanner-intro {
   padding: 15px 17px;
   margin-bottom: 18px;
-  border: 1px solid #F0D9CF;
+  border: 1px solid var(--line);
   border-radius: 14px;
-  background: #FFF5EF;
-  color: #596475;
+  background: #fff;
+  color: var(--muted);
   font-size: 13px;
 }
 .scanner-intro p { margin: 0; }
@@ -3260,9 +3261,9 @@ body { letter-spacing: .005em; }
   gap: 8px;
   padding: 5px;
   margin-bottom: 22px;
-  border: 1px solid #E7E0D9;
+  border: 1px solid var(--line);
   border-radius: 14px;
-  background: #F8F3EF;
+  background: var(--bg);
 }
 .scanner-tab {
   min-height: 43px;
@@ -3270,21 +3271,21 @@ body { letter-spacing: .005em; }
   border: 1px solid transparent;
   border-radius: 10px;
   background: transparent;
-  color: #596475;
+  color: var(--muted);
   font-size: 12px;
   font-weight: 800;
 }
 .scanner-tab.active {
-  border-color: #E77961;
+  border-color: var(--purple);
   background: #fff;
-  color: #9D4435;
+  color: var(--purple-dark);
   box-shadow: 0 3px 10px rgba(36,51,74,.07);
 }
 .scanner-pane[hidden] { display: none !important; }
 .scanner-label {
   display: block;
   margin-bottom: 9px;
-  color: #24334A;
+  color: var(--ink);
   font-size: 13px;
   font-weight: 800;
 }
@@ -3293,17 +3294,17 @@ body { letter-spacing: .005em; }
   width: 100%;
   min-height: 49px;
   padding: 13px 14px;
-  border: 1px solid #DCD6D0;
+  border: 1px solid var(--line);
   border-radius: 12px;
   outline: none;
   background: #fff;
-  color: #24334A;
+  color: var(--ink);
   font: inherit;
   font-size: 13px;
   transition: border-color .2s ease, box-shadow .2s ease;
 }
 .scanner-input:focus {
-  border-color: #E77961;
+  border-color: var(--purple);
   box-shadow: 0 0 0 3px rgba(231,121,97,.14);
 }
 .scanner-textarea {
@@ -3316,12 +3317,12 @@ body { letter-spacing: .005em; }
   justify-content: space-between;
   gap: 10px;
   margin: 7px 2px 14px;
-  color: #7B8490;
+  color: var(--muted);
   font-size: 10px;
 }
 .scanner-hint {
   margin: 8px 0 15px;
-  color: #7B8490;
+  color: var(--muted);
   font-size: 11px;
   line-height: 1.6;
 }
@@ -3332,25 +3333,29 @@ body { letter-spacing: .005em; }
   width: 100%;
   min-height: 49px;
   padding: 12px 16px;
-  border: 1px solid #E77961;
+  border: 1px solid var(--purple);
   border-radius: 12px;
-  background: #E77961;
+  background: var(--purple);
   color: #fff;
   font-size: 13px;
   font-weight: 800;
   cursor: pointer;
   transition: background .2s ease, transform .2s ease;
 }
-.scanner-submit:hover { background: #24334A; border-color: #24334A; transform: translateY(-1px); }
+.scanner-submit:hover {
+  background: var(--purple-dark);
+  border-color: var(--purple-dark);
+  transform: translateY(-1px);
+}
 .scanner-submit span { font-size: 19px; }
 .scanner-feedback {
   min-height: 50px;
   margin-top: 13px;
   padding: 13px 14px;
-  border: 1px dashed #D8D1CA;
+  border: 1px dashed var(--line);
   border-radius: 12px;
-  background: #FBF8F5;
-  color: #697383;
+  background: #fff;
+  color: var(--muted);
   font-size: 12px;
   line-height: 1.65;
 }
@@ -3362,37 +3367,38 @@ body { letter-spacing: .005em; }
 }
 .scanner-feedback.preview {
   border-style: solid;
-  border-color: #E7B4A4;
-  background: #FFF2EC;
-  color: #814536;
+  border-color: var(--line);
+  background: var(--bg);
+  color: var(--ink);
 }
 .scanner-disclaimer {
   margin-top: 22px;
   padding: 16px;
-  border-left: 4px solid #E77961;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--purple);
   border-radius: 10px;
-  background: #FFF5EF;
+  background: #fff;
 }
-.scanner-disclaimer strong { color: #9D4435; font-size: 12px; }
+.scanner-disclaimer strong { color: var(--purple-dark); font-size: 12px; }
 .scanner-disclaimer p {
   margin: 5px 0 0;
-  color: #657080;
+  color: var(--muted);
   font-size: 11px;
   line-height: 1.7;
 }
 .scanner-checklist {
   margin-top: 22px;
   padding-top: 18px;
-  border-top: 1px solid #E7E0D9;
+  border-top: 1px solid var(--line);
 }
 .scanner-checklist h3 {
   margin: 0 0 10px;
-  color: #24334A;
+  color: var(--ink);
   font-size: 16px;
 }
 .scanner-checklist ul {
   padding-left: 19px;
-  color: #657080;
+  color: var(--muted);
   font-size: 12px;
   line-height: 1.8;
 }
