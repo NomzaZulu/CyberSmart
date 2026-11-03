@@ -3574,3 +3574,121 @@ body { letter-spacing: .005em; }
   background: rgba(255,255,255,.055);
   color: #e6dcf4;
 }
+
+/* SCAM DETECTOR — clearer, more distinctive analysis result card */
+.activity-panel:has(.scanner-intro) .scanner-feedback.scanner-result {
+  min-height: 0;
+  margin-top: 18px;
+  padding: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(194, 164, 255, .34);
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(45, 31, 66, .98), rgba(24, 17, 39, .98));
+  color: #eee7fb;
+  box-shadow: 0 14px 34px rgba(5, 3, 12, .22), inset 0 1px 0 rgba(255,255,255,.045);
+}
+.activity-panel:has(.scanner-intro) .scanner-result.risk-high { border-color: rgba(255, 112, 132, .55); }
+.activity-panel:has(.scanner-intro) .scanner-result.risk-medium { border-color: rgba(255, 190, 100, .52); }
+.activity-panel:has(.scanner-intro) .scanner-result.risk-low { border-color: rgba(91, 214, 172, .42); }
+.activity-panel:has(.scanner-intro) .scanner-result.risk-unclear { border-color: rgba(194, 164, 255, .42); }
+.scanner-result-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 17px;
+  border-bottom: 1px solid rgba(222, 208, 246, .14);
+}
+.scanner-result-heading { display: flex; flex-direction: column; gap: 5px; }
+.scanner-result-heading strong { color: #fbf8ff; font-size: 19px; font-weight: 800; letter-spacing: -.025em; }
+.scanner-result-kicker, .scanner-section-label {
+  color: #bca4e8;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .13em;
+}
+.scanner-risk-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  padding: 9px 12px;
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 999px;
+  background: rgba(10, 7, 19, .34);
+  color: #f6f0ff;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: .06em;
+}
+.scanner-risk-dot { width: 8px; height: 8px; border-radius: 50%; background: #bca4e8; box-shadow: 0 0 0 4px rgba(188,164,232,.12); }
+.risk-high .scanner-risk-dot { background: #ff7185; box-shadow: 0 0 0 4px rgba(255,113,133,.14); }
+.risk-medium .scanner-risk-dot { background: #ffc16b; box-shadow: 0 0 0 4px rgba(255,193,107,.14); }
+.risk-low .scanner-risk-dot { background: #62d8ad; box-shadow: 0 0 0 4px rgba(98,216,173,.14); }
+.scanner-result-summary { padding: 18px 0 5px; }
+.activity-panel:has(.scanner-intro) .scanner-result-summary p {
+  margin: 7px 0 0;
+  color: #e3d9f1;
+  font-size: 14px;
+  line-height: 1.75;
+}
+.scanner-result-section {
+  margin-top: 15px;
+  padding: 15px 16px;
+  border: 1px solid rgba(220, 205, 244, .12);
+  border-radius: 13px;
+  background: rgba(10, 7, 19, .24);
+}
+.scanner-result-section h4 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 10px;
+  color: #f4edff;
+  font-size: 13px;
+  font-weight: 800;
+}
+.scanner-section-icon {
+  display: inline-grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 7px;
+  background: rgba(255,255,255,.08);
+  color: #d5c1ff;
+  font-size: 13px;
+  font-weight: 900;
+}
+.scanner-warning-section .scanner-section-icon { background: rgba(255,177,104,.13); color: #ffc17b; }
+.scanner-advice-section .scanner-section-icon { background: rgba(99,215,174,.13); color: #75e0b9; }
+.activity-panel:has(.scanner-intro) .scanner-result-section ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 20px;
+  color: #cfc3df;
+  font-size: 13px;
+  line-height: 1.65;
+}
+.activity-panel:has(.scanner-intro) .scanner-result-section li { padding-left: 3px; }
+.activity-panel:has(.scanner-intro) .scanner-result-note {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border-left: 3px solid #a987ec;
+  border-radius: 0 10px 10px 0;
+  background: rgba(169, 135, 236, .09);
+  color: #bfb2d0;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.scanner-result-note strong { color: #e3d3ff; font-size: 11px; }
+@media (max-width: 600px) {
+  .activity-panel:has(.scanner-intro) .scanner-feedback.scanner-result { padding: 16px; }
+  .scanner-result-topline { align-items: flex-start; }
+  .scanner-result-heading strong { font-size: 16px; }
+  .scanner-risk-pill { padding: 7px 9px; font-size: 10px; }
+  .scanner-result-section { padding: 13px; }
+}
