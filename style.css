@@ -3407,3 +3407,129 @@ body { letter-spacing: .005em; }
   .scanner-tab { padding-inline: 7px; font-size: 11px; }
   .scanner-meta { font-size: 9px; }
 }
+
+/* =========================================
+   SCAM DETECTOR — MATCH THE APPROVED DARK UI
+   White input surfaces, lavender actions, dark glass surroundings.
+   Scoped to the detector so other activities remain unchanged.
+   ========================================= */
+.activity-panel:has(.scanner-intro) .panel-head,
+.activity-panel:has(.scanner-intro) .panel-content {
+  max-width: 1226px;
+}
+
+.scanner-intro {
+  padding: 18px 21px;
+  margin-bottom: 22px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  background: #fff;
+  color: #b8a9cc;
+  font-size: 15px;
+}
+.scanner-tabs {
+  gap: 8px;
+  padding: 6px;
+  margin-bottom: 26px;
+  border: 1px solid rgba(220,200,255,.20);
+  border-radius: 17px;
+  background: rgba(15,10,26,.42);
+}
+.scanner-tab {
+  min-height: 53px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  color: #c4b8d5;
+  font-size: 14px;
+  font-weight: 700;
+}
+.scanner-tab.active {
+  border-color: #c3a4ff;
+  background: #fff;
+  color: #9b73e8;
+  box-shadow: 0 2px 10px rgba(8,5,18,.12);
+}
+.scanner-label {
+  margin-bottom: 12px;
+  color: #f7f2ff;
+  font-size: 15px;
+  font-weight: 800;
+}
+.scanner-input {
+  min-height: 58px;
+  padding: 16px 17px;
+  border: 1px solid rgba(255,255,255,.72);
+  border-radius: 14px;
+  background: #fff;
+  color: #282238;
+  font-size: 15px;
+}
+.scanner-input::placeholder { color: #888; opacity: 1; }
+.scanner-input:focus {
+  border-color: #b99aff;
+  box-shadow: 0 0 0 3px rgba(185,154,255,.22);
+}
+.scanner-textarea { min-height: 215px; }
+.scanner-meta {
+  margin: 8px 2px 17px;
+  color: #bdb1cf;
+  font-size: 12px;
+}
+.scanner-hint {
+  color: #bdb1cf;
+  font-size: 12px;
+}
+.scanner-submit {
+  min-height: 74px;
+  padding: 17px 20px;
+  border: 1px solid #b99aff;
+  border-radius: 15px;
+  background: #b99aff;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+}
+.scanner-submit:hover {
+  border-color: #cbb4ff;
+  background: #c3a7ff;
+  transform: translateY(-1px);
+}
+.scanner-submit span { font-size: 23px; }
+.scanner-feedback {
+  min-height: 58px;
+  margin-top: 16px;
+  padding: 16px 17px;
+  border: 1px solid rgba(255,255,255,.45);
+  border-radius: 14px;
+  background: #fff;
+  color: #b8a9cc;
+  font-size: 13px;
+}
+.scanner-feedback.warning {
+  border-color: rgba(255,190,110,.55);
+  background: rgba(255,190,110,.12);
+  color: #ffe1b8;
+}
+.scanner-feedback.preview {
+  border-color: rgba(220,200,255,.22);
+  background: rgba(255,255,255,.07);
+  color: #e6dcf4;
+}
+.scanner-disclaimer {
+  border: 1px solid rgba(220,200,255,.20);
+  border-left: 4px solid #b99aff;
+  border-radius: 14px;
+  background: rgba(255,255,255,.06);
+}
+.scanner-disclaimer strong { color: #e2d1ff; }
+.scanner-disclaimer p { color: #bdb1cf; }
+.scanner-checklist { border-top-color: rgba(226,211,255,.18); }
+.scanner-checklist h3 { color: #f7f2ff; }
+.scanner-checklist ul { color: #c7bdd7; }
+@media (max-width: 650px) {
+  .scanner-intro { font-size: 13px; }
+  .scanner-tabs { gap: 5px; }
+  .scanner-tab { min-height: 46px; font-size: 12px; }
+  .scanner-textarea { min-height: 175px; }
+  .scanner-submit { min-height: 58px; }
+}
